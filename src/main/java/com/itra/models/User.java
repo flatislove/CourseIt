@@ -2,6 +2,8 @@ package com.itra.models;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "users")
@@ -15,31 +17,21 @@ public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
-
-    // The user's name
     @NotNull
     private String name;
-
     @NotNull
     private String nickname;
-
-    // The user's email
     @NotNull
     private String email;
-
     @NotNull
     private String password;
-
     private String photo;
-
     @NotNull
     private int role;
 
+    @ManyToMany(mappedBy = "users")
+    private List<Project> projects = new ArrayList<>();
 
-
-    // ------------------------
-    // PUBLIC METHODS
-    // ------------------------
 
     public User() { }
 
@@ -120,5 +112,13 @@ public class User {
 
     public void setRole(int role) {
         this.role = role;
+    }
+
+    public List<Project> getProjects() {
+        return projects;
+    }
+
+    public void setProjects(List<Project> projects) {
+        this.projects = projects;
     }
 }

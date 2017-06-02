@@ -2,8 +2,10 @@ package com.itra.models;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+import java.util.ArrayList;
+import java.util.List;
 
-@Entity
+@Entity(name = "Project")
 @Table(name = "projects")
 public class Project {
     @Id
@@ -17,6 +19,34 @@ public class Project {
     private int status;
     @NotNull
     private int manager;
+
+    @ManyToMany(cascade = CascadeType.ALL)
+    @JoinTable(name = "userproject",joinColumns = @JoinColumn(name = "project_id"),
+            inverseJoinColumns = @JoinColumn(name = "user_id"))
+    private List<User> users = new ArrayList<>();
+
+    public void addUser(User user){
+        users.add(user);
+        user.getProjects().add(this);
+    }
+    public void removeUser(User user){
+        tags.remove(user);
+        user.getProjects().remove(this);
+    }
+
+    @ManyToMany(cascade = CascadeType.ALL)
+    @JoinTable(name = "tagproject",joinColumns = @JoinColumn(name = "project_id"),
+            inverseJoinColumns = @JoinColumn(name = "tag_id"))
+    private List<Tag> tags = new ArrayList<>();
+
+    public void addTag(Tag tag){
+        tags.add(tag);
+        tag.getProjects().add(this);
+    }
+    public void removeTag(Tag tag){
+        tags.remove(tag);
+        tag.getProjects().remove(this);
+    }
 
     public Project(){};
     public Project(String name, int status, int manager){

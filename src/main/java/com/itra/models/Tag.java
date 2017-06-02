@@ -2,8 +2,10 @@ package com.itra.models;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+import java.util.ArrayList;
+import java.util.List;
 
-@Entity
+@Entity(name = "Tag")
 @Table(name = "tags")
 public class Tag {
     @Id
@@ -13,6 +15,12 @@ public class Tag {
     // The user's name
     @NotNull
     private String name;
+
+    @ManyToMany(mappedBy = "tags")
+    private List<News> news = new ArrayList<>();
+
+    @ManyToMany(mappedBy = "tags")
+    private List<Project> projects = new ArrayList<>();
 
     public Tag(){};
     public Tag(String name){
@@ -33,5 +41,20 @@ public class Tag {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public List<News> getNews() {
+        return news;
+    }
+    public void setNews(List<News> news) {
+        this.news = news;
+    }
+
+    public List<Project> getProjects() {
+        return projects;
+    }
+
+    public void setProjects(List<Project> projects) {
+        this.projects = projects;
     }
 }

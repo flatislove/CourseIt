@@ -2,9 +2,11 @@ package com.itra.models;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
-@Entity
+@Entity(name = "News")
 @Table(name = "news")
 public class News {
     @Id
@@ -32,6 +34,19 @@ public class News {
         this.date=new Date();
         this.text=text;
         this.role=role;
+    }
+
+    @ManyToMany(cascade = CascadeType.ALL)
+    @JoinTable(name = "newstag",joinColumns = @JoinColumn(name = "news_id"),inverseJoinColumns = @JoinColumn(name = "tag_id"))
+    private List<Tag> tags = new ArrayList<>();
+
+    public void addTag(Tag tag){
+        tags.add(tag);
+        tag.getNews().add(this);
+    }
+    public void removeTag(Tag tag){
+        tags.remove(tag);
+        tag.getNews().remove(this);
     }
 
     public long getId() {
