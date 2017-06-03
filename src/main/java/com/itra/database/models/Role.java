@@ -10,7 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @AllArgsConstructor
-@NoArgsConstructor
+
 @Getter
 @Setter
 @Entity(name = "Role")
@@ -26,6 +26,10 @@ public class Role{
     private List<User> users = new ArrayList<>();
     @OneToMany(mappedBy = "role")
     private List<News> news = new ArrayList<>();
+
+    public Role(){
+        this.name="DEVELOPER";
+    }
 
     public Role(String name) {
         this.name = name;

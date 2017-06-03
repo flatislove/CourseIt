@@ -1,6 +1,6 @@
 package com.itra.database.daoImplements;
 
 
-public class RoleDaoImpl //implements RoleDao
+public class RoleDaoImpl //implements RoleRepository
 {
 }
