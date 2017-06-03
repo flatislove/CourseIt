@@ -20,6 +20,6 @@ public interface UserRepository extends JpaRepository<User, Long> {
     //@Override
     public ArrayList<User> findAll();
     public User findOneByName(String name);
-    public User getByAccountNonExpiredBetweenAndAccountNonExpiredContainsAndNameAndAccountNonExpiredIsFalseAndEmail();
+    //public User getByAccountNonExpiredBetweenAndAccountNonExpiredContainsAndNameAndAccountNonExpiredIsFalseAndEmail();
 
 }

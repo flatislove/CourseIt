@@ -32,6 +32,9 @@ public class MainController {
      */
     @PostMapping(value = "/register")
     public ResponseEntity<User> createUser(@RequestBody User user) {
+        String token = null;
+
+        Map<String, Object> tokenMap = new HashMap<String, Object>();
         if (userRepository.findOneByName(user.getName()) != null) {
             throw new RuntimeException("Username already exist");
         }
@@ -39,6 +42,12 @@ public class MainController {
         List<String> roles = new ArrayList<>();
         roles.add("DEVELOPER");
         user.setRole("DEVELOPER");
+
+        token = Jwts.builder().claim("roles", user.getRole()).setIssuedAt(new Date())
+                .signWith(SignatureAlgorithm.HS256, "secretkey").compact();
+        tokenMap.put("token", token);
+        tokenMap.put("user", user);
+
         return new ResponseEntity<User>(userRepository.save(user), HttpStatus.CREATED);
     }
     /**

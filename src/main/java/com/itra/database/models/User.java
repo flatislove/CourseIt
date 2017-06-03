@@ -32,8 +32,8 @@ public class User implements UserDetails{
     private String password;
     private String photo;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "role_id")
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @JoinColumn(name = "role_id",referencedColumnName = "role_id", nullable = false)
     private Role role;
 
     @OneToMany(mappedBy = "manager")
@@ -46,27 +46,23 @@ public class User implements UserDetails{
         this.id = id;
     }
 
-    public User(String name, String nickname, String email, String password,String role) {
+    public User(String name, String nickname, String email, String password) {
         this.email = email;
         this.name = name;
         this.nickname=nickname;
         this.password=password;
-        this.role=new Role(role);
-    }
-
-    public User(String name, String nickname, String email, String password) {
-
+        this.role=new Role();
     }
 
     public User(String subject, String s, List<SimpleGrantedAuthority> authorities) {
         this.name=subject;
         this.password=s;
-        this.role=new Role(authorities.get(0).toString());
+        this.role=new Role();
     }
     public User(String subject, String s) {
         this.name=subject;
         this.password=s;
-        this.role=new Role("DEVELOPER");
+        this.role=new Role();
     }
 
     @JsonIgnore
