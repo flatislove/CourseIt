@@ -1,0 +1,31 @@
+<!--<pre>{{user|json}}</pre>-->
+<!DOCTYPE HTML>
+<html lang = "en">
+
+<head>
+    <title>Resistor page</title>
+    <link href="app/views/style.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap-theme.min.css">
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+
+    <meta charset = "UTF-8" />
+    <style>
+        body {
+            background: #e8e8c1;
+        }
+    </style>
+</head>
+<body>
+<div class="resistorBack"><img src="app\views\resistor.jpg" /></div>
+<div class="color1" name="color1" onclick="changeColor1()"></div>
+<div class="color2" name="color2" onclick="changeColor2()"></div>
+<div class="color3" name="color3" onclick="changeColor3()"></div>
+<div class="color4" name="color4" onclick="changeColor4()"></div>
+<div class="elements">
+    <div id="show11" onclick="calculate()"></div>
+    <input type="text" id="textValue" name="rev">
+    <input type="button" name="but1" onclick="reverseCalculate()" value="Reverse">
+</div>
+</body>
+</html>
