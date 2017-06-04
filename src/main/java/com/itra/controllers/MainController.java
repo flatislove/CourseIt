@@ -1,7 +1,7 @@
 package com.itra.controllers;
 
-import com.itra.database.repository.UserRepository;
-import com.itra.database.models.User;
+import com.itra.entity.repository.UserRepository;
+import com.itra.entity.models.User;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import org.springframework.beans.factory.annotation.Autowired;

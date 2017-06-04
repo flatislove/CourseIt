@@ -1,12 +1,13 @@
-package com.itra.database.service.impl;
+package com.itra.entity.service.impl;
 
-import com.itra.database.models.Tag;
-import com.itra.database.repository.TagRepository;
-import com.itra.database.service.TagService;
+import com.itra.entity.models.Tag;
+import com.itra.entity.repository.TagRepository;
+import com.itra.entity.service.TagService;
 import org.springframework.beans.factory.annotation.Autowired;
-
+import org.springframework.stereotype.Service;
 import java.util.List;
 
+@Service
 public class TagServiceImpl implements TagService {
 
     @Autowired

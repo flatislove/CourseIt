@@ -1,6 +1,6 @@
-package com.itra.database.repository;
+package com.itra.entity.repository;
 
-import com.itra.database.models.User;
+import com.itra.entity.models.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;

@@ -1,4 +1,4 @@
-package com.itra.database.models;
+package com.itra.entity.models;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

@@ -1,6 +1,6 @@
-package com.itra.database.service;
+package com.itra.entity.service;
 
-import com.itra.database.models.User;
+import com.itra.entity.models.User;
 
 import java.util.List;
 

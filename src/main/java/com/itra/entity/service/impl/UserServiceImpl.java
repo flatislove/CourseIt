@@ -1,13 +1,11 @@
-package com.itra.database.service.impl;
+package com.itra.entity.service.impl;
 
 
-import com.itra.database.models.User;
-import com.itra.database.repository.UserRepository;
-import com.itra.database.service.UserService;
+import com.itra.entity.models.User;
+import com.itra.entity.repository.UserRepository;
+import com.itra.entity.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-import java.util.ArrayList;
 import java.util.List;
 
 @Service

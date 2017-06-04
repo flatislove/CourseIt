@@ -1,7 +1,7 @@
-package com.itra.database.service;
+package com.itra.entity.service;
 
 
-import com.itra.database.models.Tag;
+import com.itra.entity.models.Tag;
 
 import java.util.List;
 

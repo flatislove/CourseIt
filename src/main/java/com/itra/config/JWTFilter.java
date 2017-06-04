@@ -1,6 +1,6 @@
 package com.itra.config;
 
-import com.itra.database.models.User;
+import com.itra.entity.models.User;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
