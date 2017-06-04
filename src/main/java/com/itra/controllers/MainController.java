@@ -1,6 +1,6 @@
 package com.itra.controllers;
 
-import com.itra.database.dao.UserRepository;
+import com.itra.database.repository.UserRepository;
 import com.itra.database.models.User;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
@@ -35,7 +35,7 @@ public class MainController {
         String token = null;
 
         Map<String, Object> tokenMap = new HashMap<String, Object>();
-        if (userRepository.findOneByName(user.getName()) != null) {
+        if (userRepository.findByNickname(user.getName()) != null) {
             throw new RuntimeException("Username already exist");
         }
         //System.out.println("jjjjjjjjjjjjjjjjjjjjjjjj");
@@ -60,7 +60,7 @@ public class MainController {
     public User user(Principal principal) {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         String loggedUsername = auth.getName();
-        return userRepository.findOneByName(loggedUsername);
+        return userRepository.findByNickname(loggedUsername);
     }
 
     /**
@@ -74,7 +74,7 @@ public class MainController {
     public ResponseEntity<Map<String, Object>> login(@RequestParam String username, @RequestParam String password,
                                                      HttpServletResponse response) throws IOException {
         String token = null;
-        User user = userRepository.findOneByName(username);
+        User user = userRepository.findByNickname(username);
         Map<String, Object> tokenMap = new HashMap<String, Object>();
         if (user != null && user.getPassword().equals(password)) {
             token = Jwts.builder().setSubject(username).claim("roles", user.getRole()).setIssuedAt(new Date())

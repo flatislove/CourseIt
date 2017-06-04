@@ -1,9 +1,8 @@
-package com.itra.database.dao;
+package com.itra.database.repository;
 
 
 import com.itra.database.models.User;
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.data.repository.CrudRepository;
 
 import javax.transaction.Transactional;
 import java.util.ArrayList;
@@ -19,7 +18,7 @@ public interface UserRepository extends JpaRepository<User, Long> {
    // public User findByEmail(String email);
     //@Override
     public ArrayList<User> findAll();
-    public User findOneByName(String name);
+    public User findByNickname(String name);
     //public User getByAccountNonExpiredBetweenAndAccountNonExpiredContainsAndNameAndAccountNonExpiredIsFalseAndEmail();
 
 }

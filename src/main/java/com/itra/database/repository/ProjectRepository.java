@@ -1,10 +1,8 @@
-package com.itra.database.dao;
+package com.itra.database.repository;
 
 
 import com.itra.database.models.Project;
-import com.itra.database.models.User;
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.data.repository.CrudRepository;
 
 import javax.transaction.Transactional;
 

@@ -1,7 +1,7 @@
 package com.itra.controllers;
 
 import com.itra.database.models.User;
-import com.itra.database.dao.UserRepository;
+import com.itra.database.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -80,7 +80,7 @@ public class UserController {
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     @RequestMapping(value = "/users", method = RequestMethod.POST)
     public ResponseEntity<User> createUser(@RequestBody User appUser) {
-        if (userRepository.findOneByName(appUser.getUsername()) != null) {
+        if (userRepository.findByNickname(appUser.getUsername()) != null) {
             throw new RuntimeException("Username already exist");
         }
         return new ResponseEntity<User>(userRepository.save(appUser), HttpStatus.CREATED);
@@ -96,8 +96,8 @@ public class UserController {
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     @RequestMapping(value = "/users", method = RequestMethod.PUT)
     public User updateUser(@RequestBody User user) {
-        if (userRepository.findOneByName(user.getName()) != null
-                && userRepository.findOneByName(user.getName()).getId() != user.getId()) {
+        if (userRepository.findByNickname(user.getName()) != null
+                && userRepository.findByNickname(user.getName()).getId() != user.getId()) {
             throw new RuntimeException("Username already exist");
         }
         return userRepository.save(user);
