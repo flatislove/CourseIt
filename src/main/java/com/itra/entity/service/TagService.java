@@ -1,8 +1,6 @@
 package com.itra.entity.service;
 
-
 import com.itra.entity.models.Tag;
-
 import java.util.List;
 
 public interface TagService {
