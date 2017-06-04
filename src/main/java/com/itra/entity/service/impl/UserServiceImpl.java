@@ -1,6 +1,5 @@
 package com.itra.entity.service.impl;
 
-
 import com.itra.entity.models.User;
 import com.itra.entity.repository.UserRepository;
 import com.itra.entity.service.UserService;

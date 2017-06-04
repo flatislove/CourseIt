@@ -4,7 +4,6 @@ import com.itra.entity.models.Project;
 import java.util.List;
 
 public interface ProjectService {
-
     List<Project> getAll();
     Project getById(long id);
     Project getByName(String name);

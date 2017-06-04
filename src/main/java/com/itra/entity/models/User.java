@@ -38,6 +38,9 @@ public class User implements UserDetails{
     @OneToMany(mappedBy = "manager")
     private List<Project> projectsManager = new ArrayList<>();
 
+    @OneToMany(mappedBy = "author")
+    private List<Message> authorMessage = new ArrayList<>();
+
     @ManyToMany(mappedBy = "users")
     private List<Project> projects = new ArrayList<>();
 

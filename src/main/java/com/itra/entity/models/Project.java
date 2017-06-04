@@ -18,6 +18,7 @@ import java.util.List;
 public class Project {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "project_id")
     private long id;
     @NotNull
     private String name;
@@ -33,6 +34,9 @@ public class Project {
     @JoinTable(name = "userproject",joinColumns = @JoinColumn(name = "project_id"),
             inverseJoinColumns = @JoinColumn(name = "user_id"))
     private List<User> users = new ArrayList<>();
+
+    @OneToMany(mappedBy = "project")
+    private List<Message> projectMessage = new ArrayList<>();
 
     public void addUser(User user){
         users.add(user);
