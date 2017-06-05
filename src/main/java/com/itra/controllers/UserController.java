@@ -1,7 +1,7 @@
 package com.itra.controllers;
 
-import com.itra.database.models.User;
-import com.itra.database.dao.UserRepository;
+import com.itra.entity.models.User;
+import com.itra.entity.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -43,6 +43,7 @@ public class UserController {
     public ResponseEntity<User> userById(@PathVariable Long id) {
         User appUser = userRepository.findOne(id);
         if (appUser == null) {
+
             return new ResponseEntity<User>(HttpStatus.NO_CONTENT);
         } else {
             return new ResponseEntity<User>(appUser, HttpStatus.OK);
@@ -80,7 +81,7 @@ public class UserController {
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     @RequestMapping(value = "/users", method = RequestMethod.POST)
     public ResponseEntity<User> createUser(@RequestBody User appUser) {
-        if (userRepository.findOneByName(appUser.getUsername()) != null) {
+        if (userRepository.findByNickname(appUser.getUsername()) != null) {
             throw new RuntimeException("Username already exist");
         }
         return new ResponseEntity<User>(userRepository.save(appUser), HttpStatus.CREATED);
@@ -96,8 +97,8 @@ public class UserController {
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     @RequestMapping(value = "/users", method = RequestMethod.PUT)
     public User updateUser(@RequestBody User user) {
-        if (userRepository.findOneByName(user.getName()) != null
-                && userRepository.findOneByName(user.getName()).getId() != user.getId()) {
+        if (userRepository.findByNickname(user.getName()) != null
+                && userRepository.findByNickname(user.getName()).getId() != user.getId()) {
             throw new RuntimeException("Username already exist");
         }
         return userRepository.save(user);
@@ -111,7 +112,7 @@ public class UserController {
 //    // ------------------------
 //
 //    /**
-//     * /create  --> Create a new user and save it in the database.
+//     * /create  --> Create a new user and save it in the entity.
 //     *
 //     * @param email User's email
 //     * @param name User's name
@@ -154,7 +155,7 @@ public class UserController {
 //    /**
 //     * /get-by-email  --> Return the id for the user having the passed email.
 //     *
-//     * @param email The email to search in the database.
+//     * @param email The email to search in the entity.
 //     * @return The user id or a message error if the user is not found.
 //     */
 //    @RequestMapping("/get-by-email")
@@ -172,7 +173,7 @@ public class UserController {
 //    }
 //
 //    /**
-//     * /update  --> Update the email and the name for the user in the database
+//     * /update  --> Update the email and the name for the user in the entity
 //     * having the passed id.
 //     *
 //     * @param id The id for the user to update.

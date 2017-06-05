@@ -1,4 +1,4 @@
-package com.itra.database.models;
+package com.itra.entity.models;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -46,13 +46,13 @@ public class News {
     @JoinTable(name = "newstag",joinColumns = @JoinColumn(name = "news_id"),inverseJoinColumns = @JoinColumn(name = "tag_id"))
     private List<Tag> tags = new ArrayList<>();
 
-    public void addTag(Tag tag){
-        tags.add(tag);
-        tag.getNews().add(this);
-    }
-
-    public void removeTag(Tag tag){
-        tags.remove(tag);
-        tag.getNews().remove(this);
-    }
+//    public void addTag(Tag tag){
+//        tags.add(tag);
+//        tag.getNews().add(this);
+//    }
+//
+//    public void removeTag(Tag tag){
+//        tags.remove(tag);
+//        tag.getNews().remove(this);
+//    }
 }

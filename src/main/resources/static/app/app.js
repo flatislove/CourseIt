@@ -1,24 +1,22 @@
 // Creating angular JWTDemoApp with module name "JWTDemoApp"
 angular.module('JWTDemoApp', [ 'ui.router' ])
-
-
-// the following method will run at the time of initializing the module. That
-// means it will run only one time.
+// следующий метод будет запущен во время инициализации модуля. Что
+// означает, что он будет работать только один раз.
 .run(function(AuthService, $rootScope, $state) {
-	// For implementing the authentication with ui-router we need to listen the
-	// state change. For every state change the ui-router module will broadcast
-	// the '$stateChangeStart'.
+// Для реализации аутентификации с помощью ui-router нам нужно прослушать
+// изменение состояния. Для каждого изменения состояния модуль ui-router будет транслировать
+// '$ stateChangeStart'.
 	$rootScope.$on('$stateChangeStart', function(event, toState, toParams, fromState, fromParams) {
-		// checking the user is logged in or not
+		// проверка входа пользователя или нет
 		if (!AuthService.user) {
-			// To avoiding the infinite looping of state change we have to add a
-			// if condition.
-			if (toState.name != 'login' && toState.name != 'register') {
+		// Чтобы избежать бесконечного цикла изменения состояния, мы должны добавить
+		// если условие.
+			if (toState.name != 'login' && toState.name != 'register' && toState.name != 'news') {
 				event.preventDefault();
-				$state.go('login');
+                $state.go('login');
 			}
 		} else {
-			// checking the user is authorized to view the states
+            // проверка права пользователя на просмотр состояний
 			if (toState.data && toState.data.role) {
 				var hasAccess = false;
 				for (var i = 0; i < AuthService.user.roles.length; i++) {

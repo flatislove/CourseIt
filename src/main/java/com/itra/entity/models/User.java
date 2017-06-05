@@ -1,4 +1,4 @@
-package com.itra.database.models;
+package com.itra.entity.models;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
@@ -9,7 +9,6 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import javax.persistence.*;
-import javax.validation.constraints.NotNull;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
@@ -38,6 +37,9 @@ public class User implements UserDetails{
 
     @OneToMany(mappedBy = "manager")
     private List<Project> projectsManager = new ArrayList<>();
+
+    @OneToMany(mappedBy = "author")
+    private List<Message> authorMessage = new ArrayList<>();
 
     @ManyToMany(mappedBy = "users")
     private List<Project> projects = new ArrayList<>();
