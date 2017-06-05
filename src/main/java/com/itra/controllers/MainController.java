@@ -1,7 +1,7 @@
 package com.itra.controllers;
 
-import com.itra.entity.repository.UserRepository;
 import com.itra.entity.models.User;
+import com.itra.entity.service.UserService;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,7 +20,7 @@ import java.util.*;
 public class MainController {
 
     @Autowired
-    private UserRepository userRepository;
+    private UserService userService;
 
 
     /**
@@ -35,7 +35,7 @@ public class MainController {
         String token = null;
 
         Map<String, Object> tokenMap = new HashMap<String, Object>();
-        if (userRepository.findByNickname(user.getName()) != null) {
+        if (userService.getByNickname(user.getName()) != null) {
             throw new RuntimeException("Username already exist");
         }
         //System.out.println("jjjjjjjjjjjjjjjjjjjjjjjj");
@@ -48,7 +48,7 @@ public class MainController {
         tokenMap.put("token", token);
         tokenMap.put("user", user);
 
-        return new ResponseEntity<User>(userRepository.save(user), HttpStatus.CREATED);
+        return new ResponseEntity<User>(userService.addUser(user), HttpStatus.CREATED);
     }
     /**
      * This method will return the logged user.
@@ -60,7 +60,7 @@ public class MainController {
     public User user(Principal principal) {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         String loggedUsername = auth.getName();
-        return userRepository.findByNickname(loggedUsername);
+        return userService.getByNickname(loggedUsername);
     }
 
     /**
@@ -74,7 +74,7 @@ public class MainController {
     public ResponseEntity<Map<String, Object>> login(@RequestParam String username, @RequestParam String password,
                                                      HttpServletResponse response) throws IOException {
         String token = null;
-        User user = userRepository.findByNickname(username);
+        User user = userService.getByNickname(username);
         Map<String, Object> tokenMap = new HashMap<String, Object>();
         if (user != null && user.getPassword().equals(password)) {
             token = Jwts.builder().setSubject(username).claim("roles", user.getRole()).setIssuedAt(new Date())

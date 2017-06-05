@@ -1,7 +1,7 @@
 package com.itra.controllers;
 
 import com.itra.entity.models.User;
-import com.itra.entity.repository.UserRepository;
+import com.itra.entity.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -16,8 +16,7 @@ import java.util.List;
 @RequestMapping(value = "/api")
 public class UserController {
     @Autowired
-    private UserRepository userRepository;
-
+    private UserService userService;
 
     /**
      * Web service for getting all the appUsers in the application.
@@ -26,7 +25,7 @@ public class UserController {
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     @GetMapping(value = "/users")
     public List<User> users() {
-        return userRepository.findAll();
+        return userService.getAll();
     }
 
     /**
@@ -38,8 +37,8 @@ public class UserController {
      */
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     @RequestMapping(value = "/users/{id}", method = RequestMethod.GET)
-    public ResponseEntity<User> userById(@PathVariable Long id) {
-        User appUser = userRepository.findOne(id);
+    public ResponseEntity<User> userById(@PathVariable long id) {
+        User appUser = userService.getById(id);
         if (appUser == null) {
 
             return new ResponseEntity<User>(HttpStatus.NO_CONTENT);
@@ -57,7 +56,7 @@ public class UserController {
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     @RequestMapping(value = "/users/{id}", method = RequestMethod.DELETE)
     public ResponseEntity<User> deleteUser(@PathVariable Long id) {
-        User appUser = userRepository.findOne(id);
+        User appUser = userService.getById(id);
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         String loggedUsername = auth.getName();
         if (appUser == null) {
@@ -65,7 +64,7 @@ public class UserController {
         } else if (appUser.getUsername().equalsIgnoreCase(loggedUsername)) {
             throw new RuntimeException("You cannot delete your account");
         } else {
-            userRepository.delete(appUser);
+            userService.delete(appUser.getId());
             return new ResponseEntity<User>(appUser, HttpStatus.OK);
         }
     }
@@ -79,12 +78,12 @@ public class UserController {
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     @RequestMapping(value = "/users", method = RequestMethod.POST)
     public ResponseEntity<User> createUser(@RequestBody User appUser) {
-        if (userRepository.findByNickname(appUser.getUsername()) != null) {
+        if (userService.getByNickname(appUser.getUsername()) != null) {
             throw new RuntimeException("Username already exist");
         }
-        return new ResponseEntity<User>(userRepository.save(appUser), HttpStatus.CREATED);
+        return new ResponseEntity<User>(userService.addUser(appUser), HttpStatus.CREATED);
     }
-    
+
     /**
      * Method for editing an user details
      *
@@ -94,11 +93,11 @@ public class UserController {
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     @RequestMapping(value = "/users", method = RequestMethod.PUT)
     public User updateUser(@RequestBody User user) {
-        if (userRepository.findByNickname(user.getName()) != null
-                && userRepository.findByNickname(user.getName()).getId() != user.getId()) {
+        if (userService.getByNickname(user.getName()) != null
+                && userService.getByNickname(user.getName()).getId() != user.getId()) {
             throw new RuntimeException("Username already exist");
         }
-        return userRepository.save(user);
+        return userService.addUser(user);
     }
 
 
