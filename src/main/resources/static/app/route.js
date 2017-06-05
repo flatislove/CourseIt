@@ -1,8 +1,8 @@
 angular.module('JWTDemoApp').config(function($stateProvider, $urlRouterProvider) {
-	
-	// the ui router will redirect if a invalid state has come.
+
+    // маршрутизатор ui перенаправит, если появилось недопустимое состояние.
 	$urlRouterProvider.otherwise('/page-not-found');
-	// parent view - navigation state
+    // родительский вид - состояние навигации
 	$stateProvider.state('nav', {
 		abstract : true,
 		url : '',
@@ -12,6 +12,15 @@ angular.module('JWTDemoApp').config(function($stateProvider, $urlRouterProvider)
 				controller : 'NavController'
 			}
 		}
+	}).state('news', {
+            parent : 'nav',
+            url : '/news',
+            views : {
+                'content@' : {
+                    templateUrl : 'app/views/news.html',
+                    controller : 'NewsController'
+                }
+            }
 	}).state('login', {
 		parent : 'nav',
 		url : '/login',

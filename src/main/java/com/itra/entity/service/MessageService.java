@@ -1,7 +1,6 @@
 package com.itra.entity.service;
 
 import com.itra.entity.models.Message;
-
 import java.util.List;
 
 public interface MessageService {

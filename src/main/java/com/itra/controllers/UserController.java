@@ -43,6 +43,7 @@ public class UserController {
     public ResponseEntity<User> userById(@PathVariable Long id) {
         User appUser = userRepository.findOne(id);
         if (appUser == null) {
+
             return new ResponseEntity<User>(HttpStatus.NO_CONTENT);
         } else {
             return new ResponseEntity<User>(appUser, HttpStatus.OK);

@@ -1,5 +1,5 @@
 angular.module('JWTDemoApp')
-// Creating the Angular Service for storing logged user details
+// Создание службы для хранения зарегистрированных данных пользователя
 .service('AuthService', function() {
 	return {
 		user : null
