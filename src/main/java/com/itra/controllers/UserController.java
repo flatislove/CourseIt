@@ -21,7 +21,6 @@ public class UserController {
 
     /**
      * Web service for getting all the appUsers in the application.
-     *
      * @return list of all AppUser
      */
     @PreAuthorize("hasRole('ROLE_ADMIN')")
@@ -29,7 +28,6 @@ public class UserController {
     public List<User> users() {
         return userRepository.findAll();
     }
-
 
     /**
      * Web service for getting a user by his ID
@@ -86,8 +84,7 @@ public class UserController {
         }
         return new ResponseEntity<User>(userRepository.save(appUser), HttpStatus.CREATED);
     }
-
-
+    
     /**
      * Method for editing an user details
      *
