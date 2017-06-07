@@ -88,11 +88,3 @@ public class MainController {
         }
     }
 }
-
- /*   @RequestMapping("/")
-    @ResponseBody
-    public String index() {
-        return "return text for itrascreen";
-    }
-
-}*/

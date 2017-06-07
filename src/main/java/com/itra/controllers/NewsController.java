@@ -15,7 +15,7 @@ public class NewsController {
     @Autowired
     NewsService newsService;
 
-    @GetMapping(value = "/news")
+    //@GetMapping(value = "/news")
     public News getNews() {
         return newsService.getById(1L);
     }
