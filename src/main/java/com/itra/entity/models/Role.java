@@ -1,15 +1,19 @@
 package com.itra.entity.models;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
+import org.codehaus.jackson.annotate.JsonBackReference;
+import org.codehaus.jackson.annotate.JsonIgnore;
+import org.codehaus.jackson.annotate.JsonManagedReference;
+
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.util.ArrayList;
 import java.util.List;
-
 @AllArgsConstructor
-
 @Getter
 @Setter
 @Entity(name = "Role")
@@ -21,8 +25,14 @@ public class Role{
     private long id;
     @NotNull
     private String name;
+
+    @JsonIgnore
+    //@JsonManagedReference
     @OneToMany(mappedBy = "role")
     private List<User> users = new ArrayList<>();
+
+    @JsonIgnore
+    //@JsonManagedReference
     @OneToMany(mappedBy = "role")
     private List<News> news = new ArrayList<>();
 

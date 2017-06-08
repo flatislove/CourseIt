@@ -4,6 +4,9 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.codehaus.jackson.annotate.JsonBackReference;
+import org.codehaus.jackson.annotate.JsonIgnore;
+
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.util.ArrayList;
@@ -22,9 +25,13 @@ public class Tag {
     @NotNull
     private String name;
 
+    @JsonIgnore
+    //@JsonBackReference
     @ManyToMany(mappedBy = "tags")
     private List<News> news = new ArrayList<>();
 
+    @JsonIgnore
+    //@JsonBackReference
     @ManyToMany(mappedBy = "tags")
     private List<Project> projects = new ArrayList<>();
 

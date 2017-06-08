@@ -1,10 +1,14 @@
 package com.itra.entity.models;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.codehaus.jackson.annotate.JsonBackReference;
+import org.codehaus.jackson.annotate.JsonManagedReference;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -31,16 +35,24 @@ public class User implements UserDetails{
     private String password;
     private String photo;
 
+    @JsonIgnore
+    //@JsonBackReference
     @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name = "role_id",referencedColumnName = "role_id", nullable = false)
     private Role role;
 
+    @JsonIgnore
+    //@JsonManagedReference
     @OneToMany(mappedBy = "manager")
     private List<Project> projectsManager = new ArrayList<>();
 
+    @org.codehaus.jackson.annotate.JsonIgnore
+    //@JsonManagedReference
     @OneToMany(mappedBy = "author")
     private List<Message> authorMessage = new ArrayList<>();
 
+    @org.codehaus.jackson.annotate.JsonIgnore
+    //@JsonBackReference
     @ManyToMany(mappedBy = "users")
     private List<Project> projects = new ArrayList<>();
 

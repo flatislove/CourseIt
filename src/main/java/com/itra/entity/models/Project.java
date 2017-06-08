@@ -4,6 +4,10 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.codehaus.jackson.annotate.JsonBackReference;
+import org.codehaus.jackson.annotate.JsonIgnore;
+import org.codehaus.jackson.annotate.JsonManagedReference;
+
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.util.ArrayList;
@@ -26,15 +30,21 @@ public class Project {
     private String text;
     @NotNull
     private int status;
+    @JsonIgnore
+    //@JsonBackReference
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
     private User manager;
 
+    @JsonIgnore
+    //@JsonBackReference
     @ManyToMany(cascade = CascadeType.ALL)
     @JoinTable(name = "userproject",joinColumns = @JoinColumn(name = "project_id"),
             inverseJoinColumns = @JoinColumn(name = "user_id"))
     private List<User> users = new ArrayList<>();
 
+    @JsonIgnore
+   // @JsonManagedReference
     @OneToMany(mappedBy = "project")
     private List<Message> projectMessage = new ArrayList<>();
 
@@ -48,6 +58,8 @@ public class Project {
         user.getProjects().remove(this);
     }
 
+    @JsonIgnore
+   // @JsonBackReference
     @ManyToMany(cascade = CascadeType.ALL)
     @JoinTable(name = "tagproject",joinColumns = @JoinColumn(name = "project_id"),
             inverseJoinColumns = @JoinColumn(name = "tag_id"))
