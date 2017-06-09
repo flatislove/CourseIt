@@ -1,10 +1,13 @@
 package com.itra.entity.service.impl;
 
+import com.itra.entity.dto.UserDto;
 import com.itra.entity.models.User;
 import com.itra.entity.repository.UserRepository;
 import com.itra.entity.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -14,8 +17,8 @@ public class UserServiceImpl implements UserService{
     private UserRepository userRepository;
 
     @Override
-    public User getById(long id) {
-        return userRepository.findOne(id);
+    public UserDto getById(long id) {
+        return new UserDto(userRepository.findOne(id));
     }
 
 
@@ -31,8 +34,8 @@ public class UserServiceImpl implements UserService{
     }
 
     @Override
-    public User getByNickname(String nickname) {
-        return userRepository.findByNickname(nickname);
+    public UserDto getByNickname(String nickname) {
+        return new UserDto(userRepository.findByNickname(nickname));
     }
 
     @Override
@@ -41,8 +44,24 @@ public class UserServiceImpl implements UserService{
     }
 
     @Override
-    public List<User> getAll() {
-        return userRepository.findAll();
+    public List<UserDto> getAll() {
+        return this.toDto(userRepository.findAll());
+    }
+
+    public List<UserDto> toDto(List<User> list){
+        List<UserDto> listDto = new ArrayList<>();
+        for (User user: list){
+            listDto.add(new UserDto(user));
+        }
+        return listDto;
+    }
+
+    public static ArrayList<Long> getIdAll(List<User> users){
+        ArrayList<Long> listId = new ArrayList<>();
+        for (User user: users){
+            listId.add(user.getId());
+        }
+        return listId;
     }
 
 }

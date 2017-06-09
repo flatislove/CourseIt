@@ -1,14 +1,15 @@
 package com.itra.entity.service;
 
+import com.itra.entity.dto.RoleDto;
 import com.itra.entity.models.Role;
 import java.util.List;
 
 public interface RoleService {
 
-    List<Role> getAll();
-    Role getById(long id);
-    Role getByName(String name);
-    Role addNews(Role tag);
+    List<RoleDto> getAll();
+    RoleDto getById(long id);
+    RoleDto getByName(String name);
+    Role addRole(Role role);
     void delete(long id);
-    Role editNews(Role tag);
+    Role editRole(Role role);
 }

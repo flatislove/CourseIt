@@ -1,10 +1,13 @@
 package com.itra.entity.service.impl;
 
+import com.itra.entity.dto.MessageDto;
 import com.itra.entity.models.Message;
 import com.itra.entity.repository.MessageRepository;
 import com.itra.entity.service.MessageService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -14,13 +17,21 @@ public class MessageServiceImpl implements MessageService{
     MessageRepository messageRepository;
 
     @Override
-    public List<Message> getAll() {
-        return messageRepository.findAll();
+    public List<MessageDto> getAll() {
+        return this.toDto(messageRepository.findAll());
+    }
+
+    public List<MessageDto> toDto(List<Message> list){
+        List<MessageDto> listDto = new ArrayList<>();
+        for (Message message: list){
+            listDto.add(new MessageDto(message));
+        }
+        return listDto;
     }
 
     @Override
-    public Message getById(long id) {
-        return messageRepository.findOne(id);
+    public MessageDto getById(long id) {
+        return new MessageDto(messageRepository.findOne(id));
     }
 
     @Override

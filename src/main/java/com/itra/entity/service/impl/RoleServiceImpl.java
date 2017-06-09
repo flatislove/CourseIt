@@ -1,10 +1,13 @@
 package com.itra.entity.service.impl;
 
+import com.itra.entity.dto.RoleDto;
 import com.itra.entity.models.Role;
 import com.itra.entity.repository.RoleRepository;
 import com.itra.entity.service.RoleService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -14,22 +17,31 @@ public class RoleServiceImpl implements RoleService {
     RoleRepository roleRepository;
 
     @Override
-    public List<Role> getAll() {
-        return roleRepository.findAll();
+    public List<RoleDto> getAll() {
+        return this.toDto(roleRepository.findAll());
+    }
+
+    public List<RoleDto> toDto(List<Role> list){
+        List<RoleDto> listDto = new ArrayList<>();
+        for (Role role: list){
+            listDto.add(new RoleDto(role));
+        }
+        return listDto;
+    }
+
+
+    @Override
+    public RoleDto getById(long id) {
+        return new RoleDto(roleRepository.findOne(id));
     }
 
     @Override
-    public Role getById(long id) {
-        return roleRepository.findOne(id);
+    public RoleDto getByName(String name) {
+        return new RoleDto(roleRepository.findByName(name));
     }
 
     @Override
-    public Role getByName(String name) {
-        return roleRepository.findByName(name);
-    }
-
-    @Override
-    public Role addNews(Role tag) {
+    public Role addRole(Role tag) {
         Role savedRole = roleRepository.saveAndFlush(tag);
         return savedRole;
     }
@@ -40,7 +52,7 @@ public class RoleServiceImpl implements RoleService {
     }
 
     @Override
-    public Role editNews(Role tag) {
+    public Role editRole(Role tag) {
         return roleRepository.saveAndFlush(tag);
     }
 }

@@ -1,10 +1,13 @@
 package com.itra.entity.service.impl;
 
+import com.itra.entity.dto.ProjectDto;
 import com.itra.entity.models.Project;
 import com.itra.entity.repository.ProjectRepository;
 import com.itra.entity.service.ProjectService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -14,22 +17,31 @@ public class ProjectServiceImpl implements ProjectService {
     private ProjectRepository projectRepository;
 
     @Override
-    public List<Project> getAll() {
-        return projectRepository.findAll();
+    public List<ProjectDto> getAll() {
+        return this.toDto(projectRepository.findAll());
+    }
+
+    public List<ProjectDto> toDto(List<Project> list){
+        List<ProjectDto> listDto = new ArrayList<>();
+        for (Project project: list){
+            listDto.add(new ProjectDto(project));
+        }
+        return listDto;
     }
 
     @Override
-    public Project getById(long id) {
-        return projectRepository.findOne(id);
+    public ProjectDto getById(long id) {
+
+        return new ProjectDto(projectRepository.findOne(id));
     }
 
     @Override
-    public Project getByName(String name) {
-        return projectRepository.findByName(name);
+    public ProjectDto getByName(String name) {
+        return new ProjectDto(projectRepository.findByName(name));
     }
 
     @Override
-    public Project addNews(Project project) {
+    public Project addProject(Project project) {
         Project savedProject = projectRepository.saveAndFlush(project);
         return savedProject;
     }
@@ -40,7 +52,15 @@ public class ProjectServiceImpl implements ProjectService {
     }
 
     @Override
-    public Project editNews(Project tag) {
+    public Project editProject(Project tag) {
         return projectRepository.saveAndFlush(tag);
+    }
+
+    public static ArrayList<Long> getIdAll(List<Project> projects){
+        ArrayList<Long> listId = new ArrayList<>();
+        for (Project project: projects){
+            listId.add(project.getId());
+        }
+        return listId;
     }
 }

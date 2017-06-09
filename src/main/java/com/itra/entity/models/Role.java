@@ -23,16 +23,14 @@ public class Role{
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "role_id")
     private long id;
+
     @NotNull
     private String name;
 
-    @JsonIgnore
-    //@JsonManagedReference
     @OneToMany(mappedBy = "role")
     private List<User> users = new ArrayList<>();
 
-    @JsonIgnore
-    //@JsonManagedReference
+    @JsonManagedReference
     @OneToMany(mappedBy = "role")
     private List<News> news = new ArrayList<>();
 
@@ -42,6 +40,14 @@ public class Role{
 
     public Role(String name) {
         this.name = name;
+    }
+
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
     }
 
     public String getName() {

@@ -1,16 +1,17 @@
 package com.itra.entity.service;
 
+import com.itra.entity.dto.UserDto;
 import com.itra.entity.models.News;
 import com.itra.entity.models.User;
 
 import java.util.List;
 
 public interface UserService {
-    User getById(long id);
+    UserDto getById(long id);
     User addUser(User user);
     void delete(long id);
-    User getByNickname(String nickname);
+    UserDto getByNickname(String nickname);
     User editUser(User user);
-    List<User> getAll();
+    List<UserDto> getAll();
     //User changeName(String name);
 }

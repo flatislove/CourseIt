@@ -23,12 +23,10 @@ public class Message {
     private long id;
     private Date date;
     private String text;
-    @JsonIgnore
     //@JsonBackReference
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
     private User author;
-    @JsonIgnore
     //@JsonBackReference
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "project_id")

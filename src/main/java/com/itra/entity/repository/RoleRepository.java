@@ -13,4 +13,5 @@ import javax.transaction.Transactional;
 public interface RoleRepository extends JpaRepository<Role, Long> {
     @Query("select r from Role r where r.name = :name")
     Role findByName(@Param("name") String name);
+    Role findFirstByName(String name);
 }

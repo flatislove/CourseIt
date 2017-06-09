@@ -46,12 +46,12 @@ public class User implements UserDetails{
     @OneToMany(mappedBy = "manager")
     private List<Project> projectsManager = new ArrayList<>();
 
-    @org.codehaus.jackson.annotate.JsonIgnore
+    @JsonIgnore
     //@JsonManagedReference
     @OneToMany(mappedBy = "author")
     private List<Message> authorMessage = new ArrayList<>();
 
-    @org.codehaus.jackson.annotate.JsonIgnore
+    @JsonIgnore
     //@JsonBackReference
     @ManyToMany(mappedBy = "users")
     private List<Project> projects = new ArrayList<>();
@@ -112,8 +112,8 @@ public class User implements UserDetails{
         this.role = new Role(role);
     }
 
-    public String getRole() {
-        return role.getName();
+    public long getRole() {
+        return role.getId();
     }
 
     public String getPassword() {

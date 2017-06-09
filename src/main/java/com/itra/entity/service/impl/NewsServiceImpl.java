@@ -1,11 +1,14 @@
 package com.itra.entity.service.impl;
 
+import com.itra.entity.dto.NewsDto;
 import com.itra.entity.models.News;
 import com.itra.entity.repository.NewsRepository;
 import com.itra.entity.service.NewsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Service;
+
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Stream;
 
@@ -16,18 +19,26 @@ public class NewsServiceImpl implements NewsService {
     private NewsRepository newsRepository;
 
     @Override
-    public List<News> getAll() {
-        return newsRepository.findAll();
+    public List<NewsDto> getAll() {
+        return this.toDto(newsRepository.findAll());
+    }
+
+    public List<NewsDto> toDto(List<News> list){
+        List<NewsDto> listDto = new ArrayList<>();
+        for (News news: list){
+            listDto.add(new NewsDto(news));
+        }
+        return listDto;
     }
 
     @Override
-    public News getById(long id) {
-        return newsRepository.findOne(id);
+    public NewsDto getById(long id) {
+        return new NewsDto(newsRepository.findOne(id));
     }
 
     @Override
-    public News getByName(String name) {
-        return newsRepository.findByName(name);
+    public NewsDto getByName(String name) {
+        return new NewsDto(newsRepository.findByName(name));
     }
 
     @Override
@@ -45,12 +56,4 @@ public class NewsServiceImpl implements NewsService {
     public News editNews(News tag) {
         return newsRepository.saveAndFlush(tag);
     }
-
-//    @Override
-//    public void run(String... args) throws Exception {
-//        Stream.of("NewsStream","NewsStream2","NewsStream3","NewsStream4","NewsStream5","NewsStream6").forEach(name->
-//        newsRepository.saveAndFlush(new News(name)));
-//        newsRepository.findAll().forEach(System.out::println);
-//
-//    }
 }
