@@ -35,7 +35,7 @@ public class User implements UserDetails{
     private String password;
     private String photo;
 
-    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinColumn(name = "role_id",referencedColumnName = "role_id", nullable = false)
     private Role role;
 
