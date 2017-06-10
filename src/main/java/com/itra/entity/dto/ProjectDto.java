@@ -3,16 +3,15 @@ package com.itra.entity.dto;
 import com.itra.entity.models.Project;
 import com.itra.entity.service.impl.TagServiceImpl;
 import com.itra.entity.service.impl.UserServiceImpl;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
+
 import java.util.ArrayList;
 
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
 @Setter
+@Data
 public class ProjectDto {
     private long id;
     private String name;

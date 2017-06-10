@@ -6,7 +6,6 @@ import com.itra.entity.repository.UserRepository;
 import com.itra.entity.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import java.util.ArrayList;
 import java.util.List;
 

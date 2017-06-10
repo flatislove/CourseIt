@@ -1,16 +1,15 @@
 package com.itra.entity.dto;
 
 import com.itra.entity.models.News;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
+
 import java.util.Date;
 
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
 @Setter
+@Data
 public class NewsDto {
     private long id;
     private String description;

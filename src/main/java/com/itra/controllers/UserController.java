@@ -1,5 +1,6 @@
 package com.itra.controllers;
 
+import com.itra.entity.dto.UserDto;
 import com.itra.entity.models.User;
 import com.itra.entity.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,7 +25,7 @@ public class UserController {
      */
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     @GetMapping(value = "/users")
-    public List<User> users() {
+    public List<UserDto> users() {
         return userService.getAll();
     }
 
@@ -36,14 +37,14 @@ public class UserController {
      * @return appUser
      */
     @PreAuthorize("hasRole('ROLE_ADMIN')")
-    @RequestMapping(value = "/users/{id}", method = RequestMethod.GET)
-    public ResponseEntity<User> userById(@PathVariable long id) {
-        User appUser = userService.getById(id);
+    @GetMapping(value = "/users/{id}")
+    public ResponseEntity<UserDto> userById(@PathVariable long id) {
+        UserDto appUser = userService.getById(id);
         if (appUser == null) {
 
-            return new ResponseEntity<User>(HttpStatus.NO_CONTENT);
+            return new ResponseEntity<UserDto>(HttpStatus.NO_CONTENT);
         } else {
-            return new ResponseEntity<User>(appUser, HttpStatus.OK);
+            return new ResponseEntity<UserDto>(appUser, HttpStatus.OK);
         }
     }
 
@@ -55,17 +56,17 @@ public class UserController {
      */
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     @RequestMapping(value = "/users/{id}", method = RequestMethod.DELETE)
-    public ResponseEntity<User> deleteUser(@PathVariable Long id) {
-        User appUser = userService.getById(id);
+    public ResponseEntity<UserDto> deleteUser(@PathVariable Long id) {
+        UserDto appUser = userService.getById(id);
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         String loggedUsername = auth.getName();
         if (appUser == null) {
-            return new ResponseEntity<User>(HttpStatus.NO_CONTENT);
-        } else if (appUser.getUsername().equalsIgnoreCase(loggedUsername)) {
+            return new ResponseEntity<UserDto>(HttpStatus.NO_CONTENT);
+        } else if (appUser.getName().equalsIgnoreCase(loggedUsername)) {
             throw new RuntimeException("You cannot delete your account");
         } else {
             userService.delete(appUser.getId());
-            return new ResponseEntity<User>(appUser, HttpStatus.OK);
+            return new ResponseEntity<UserDto>(appUser, HttpStatus.OK);
         }
     }
 

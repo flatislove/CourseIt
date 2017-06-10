@@ -35,24 +35,16 @@ public class User implements UserDetails{
     private String password;
     private String photo;
 
-    @JsonIgnore
-    //@JsonBackReference
     @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name = "role_id",referencedColumnName = "role_id", nullable = false)
     private Role role;
 
-    @JsonIgnore
-    //@JsonManagedReference
     @OneToMany(mappedBy = "manager")
     private List<Project> projectsManager = new ArrayList<>();
 
-    @JsonIgnore
-    //@JsonManagedReference
     @OneToMany(mappedBy = "author")
     private List<Message> authorMessage = new ArrayList<>();
 
-    @JsonIgnore
-    //@JsonBackReference
     @ManyToMany(mappedBy = "users")
     private List<Project> projects = new ArrayList<>();
 
@@ -79,7 +71,6 @@ public class User implements UserDetails{
         this.role=new Role();
     }
 
-    @JsonIgnore
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         Collection<GrantedAuthority> authorities = new ArrayList<>();
@@ -88,62 +79,26 @@ public class User implements UserDetails{
         return authorities;
     }
 
-    public long getId() {
-        return id;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setNickname(String nickname) {
-        this.nickname = nickname;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    public void setRole(String role) {
-        this.role = new Role(role);
-    }
-
-    public long getRole() {
-        return role.getId();
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
     @Override
     public String getUsername() {
         return name;
     }
 
-    @JsonIgnore
     @Override
     public boolean isAccountNonExpired() {
         return true;
     }
 
-    @JsonIgnore
     @Override
     public boolean isAccountNonLocked() {
         return true;
     }
 
-    @JsonIgnore
     @Override
     public boolean isCredentialsNonExpired() {
         return true;
     }
 
-    @JsonIgnore
     @Override
     public boolean isEnabled() {
         return true;

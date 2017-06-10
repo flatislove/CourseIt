@@ -1,16 +1,15 @@
 package com.itra.entity.dto;
 
 import com.itra.entity.models.Message;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
+
 import java.util.Date;
 
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
 @Setter
+@Data
 public class MessageDto {
     private long id;
     private Date date;

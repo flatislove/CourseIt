@@ -3,6 +3,7 @@ package com.itra.entity.models;
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import lombok.AllArgsConstructor;
+import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 import org.codehaus.jackson.annotate.JsonBackReference;
@@ -16,6 +17,7 @@ import java.util.List;
 @AllArgsConstructor
 @Getter
 @Setter
+@Data
 @Entity(name = "Role")
 @Table(name = "roles")
 public class Role{
@@ -30,7 +32,6 @@ public class Role{
     @OneToMany(mappedBy = "role")
     private List<User> users = new ArrayList<>();
 
-    @JsonManagedReference
     @OneToMany(mappedBy = "role")
     private List<News> news = new ArrayList<>();
 
@@ -39,22 +40,6 @@ public class Role{
     }
 
     public Role(String name) {
-        this.name = name;
-    }
-
-    public long getId() {
-        return id;
-    }
-
-    public void setId(long id) {
-        this.id = id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
         this.name = name;
     }
 }

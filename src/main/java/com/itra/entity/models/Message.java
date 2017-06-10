@@ -1,9 +1,6 @@
 package com.itra.entity.models;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 import org.codehaus.jackson.annotate.JsonBackReference;
 import org.codehaus.jackson.annotate.JsonIgnore;
 
@@ -14,6 +11,7 @@ import java.util.Date;
 @NoArgsConstructor
 @Getter
 @Setter
+@Data
 @Entity(name = "Message")
 @Table(name = "message")
 public class Message {

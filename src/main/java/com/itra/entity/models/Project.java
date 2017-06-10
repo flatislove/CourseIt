@@ -1,9 +1,6 @@
 package com.itra.entity.models;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 import org.codehaus.jackson.annotate.JsonBackReference;
 import org.codehaus.jackson.annotate.JsonIgnore;
 import org.codehaus.jackson.annotate.JsonManagedReference;
@@ -17,6 +14,7 @@ import java.util.List;
 @NoArgsConstructor
 @Getter
 @Setter
+@Data
 @Entity(name = "Project")
 @Table(name = "projects")
 public class Project {
@@ -30,21 +28,16 @@ public class Project {
     private String text;
     @NotNull
     private int status;
-    @JsonIgnore
-    //@JsonBackReference
+
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
     private User manager;
 
-    @JsonIgnore
-    //@JsonBackReference
     @ManyToMany(cascade = CascadeType.ALL)
     @JoinTable(name = "userproject",joinColumns = @JoinColumn(name = "project_id"),
             inverseJoinColumns = @JoinColumn(name = "user_id"))
     private List<User> users = new ArrayList<>();
 
-    @JsonIgnore
-   // @JsonManagedReference
     @OneToMany(mappedBy = "project")
     private List<Message> projectMessage = new ArrayList<>();
 
@@ -58,8 +51,6 @@ public class Project {
         user.getProjects().remove(this);
     }
 
-    @JsonIgnore
-   // @JsonBackReference
     @ManyToMany(cascade = CascadeType.ALL)
     @JoinTable(name = "tagproject",joinColumns = @JoinColumn(name = "project_id"),
             inverseJoinColumns = @JoinColumn(name = "tag_id"))

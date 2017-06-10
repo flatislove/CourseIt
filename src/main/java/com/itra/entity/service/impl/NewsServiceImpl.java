@@ -56,4 +56,6 @@ public class NewsServiceImpl implements NewsService {
     public News editNews(News tag) {
         return newsRepository.saveAndFlush(tag);
     }
+
+
 }

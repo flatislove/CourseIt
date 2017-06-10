@@ -1,15 +1,13 @@
 package com.itra.entity.dto;
 
 import com.itra.entity.models.Tag;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
 @Setter
+@Data
 public class TagDto {
     private long id;
     private String name;

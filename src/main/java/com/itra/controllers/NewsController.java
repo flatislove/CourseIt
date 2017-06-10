@@ -1,24 +1,32 @@
 package com.itra.controllers;
 
-import com.itra.entity.models.News;
+import com.itra.entity.dto.NewsDto;
 import com.itra.entity.service.NewsService;
 import org.springframework.beans.factory.annotation.Autowired;
-import io.jsonwebtoken.Jwts;
-import io.jsonwebtoken.SignatureAlgorithm;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+import java.util.List;
 
 @RestController
-@RequestMapping(value = "/api")
+@CrossOrigin
+@RequestMapping(value = "/app")
 public class NewsController {
+
     @Autowired
     NewsService newsService;
 
-    @GetMapping(value = "/news")
-    @CrossOrigin(origins = "http://localhost:4200/news")
-    public News getNews() {
-        return newsService.getById(4L);
-    }
+        @GetMapping(value = "/news")
+        public List<NewsDto> getNews() {
+        return newsService.getAll();
+ }
+
+        @GetMapping(value = "/news/{id}")
+        public ResponseEntity<NewsDto> getNewsById(@PathVariable long id){
+            NewsDto newsDto = newsService.getById(id);
+            if(newsDto==null){
+                return new ResponseEntity<NewsDto>(HttpStatus.NO_CONTENT);
+            }
+            else return new ResponseEntity<NewsDto>(newsDto,HttpStatus.OK);
+        }
 }

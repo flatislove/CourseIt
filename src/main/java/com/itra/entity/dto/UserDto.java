@@ -2,16 +2,15 @@ package com.itra.entity.dto;
 
 import com.itra.entity.models.User;
 import com.itra.entity.service.impl.ProjectServiceImpl;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
+
 import java.util.ArrayList;
 
 @AllArgsConstructor
 @NoArgsConstructor
 @Setter
 @Getter
+@Data
 public class UserDto{
     private long id;
     private String name;
@@ -28,7 +27,7 @@ public class UserDto{
         this.email=user.getEmail();
         this.nickname=user.getNickname();
         this.photo=user.getPhoto();
-        this.role=user.getRole();
+        this.role=user.getRole().getId();
         this.projects= ProjectServiceImpl.getIdAll(user.getProjects());
     }
 

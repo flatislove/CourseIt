@@ -16,13 +16,6 @@ public class SimpleController {
         this.newsRepository=newsRepository;
     };
 
-
-
-    @GetMapping(path = "/news")
-    public List<News> mainViewMethod(){
-        return newsRepository.findAll() ;
-    }
-
     @GetMapping(path = "/login")
     public String mainViewMethod2(){
         return "main5_return";

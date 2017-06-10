@@ -1,6 +1,9 @@
 package com.itra.controllers;
 
+import com.itra.entity.dto.UserDto;
+import com.itra.entity.models.Role;
 import com.itra.entity.models.User;
+import com.itra.entity.service.RoleService;
 import com.itra.entity.service.UserService;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
@@ -22,6 +25,9 @@ public class MainController {
     @Autowired
     private UserService userService;
 
+    @Autowired
+    private RoleService roleService;
+
 
     /**
      * This method is used for user registration. Note: user registration is not
@@ -38,10 +44,9 @@ public class MainController {
         if (userService.getByNickname(user.getName()) != null) {
             throw new RuntimeException("Username already exist");
         }
-        //System.out.println("jjjjjjjjjjjjjjjjjjjjjjjj");
         List<String> roles = new ArrayList<>();
         roles.add("DEVELOPER");
-        user.setRole("DEVELOPER");
+        user.setRole(roleService.getByIdRole(3l));
 
         token = Jwts.builder().claim("roles", user.getRole()).setIssuedAt(new Date())
                 .signWith(SignatureAlgorithm.HS256, "secretkey").compact();
@@ -57,7 +62,7 @@ public class MainController {
      * @return Principal java security principal object
      */
     @RequestMapping("/user")
-    public User user(Principal principal) {
+    public UserDto user(Principal principal) {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         String loggedUsername = auth.getName();
         return userService.getByNickname(loggedUsername);
@@ -74,7 +79,7 @@ public class MainController {
     public ResponseEntity<Map<String, Object>> login(@RequestParam String username, @RequestParam String password,
                                                      HttpServletResponse response) throws IOException {
         String token = null;
-        User user = userService.getByNickname(username);
+        UserDto user = userService.getByNickname(username);
         Map<String, Object> tokenMap = new HashMap<String, Object>();
         if (user != null && user.getPassword().equals(password)) {
             token = Jwts.builder().setSubject(username).claim("roles", user.getRole()).setIssuedAt(new Date())
