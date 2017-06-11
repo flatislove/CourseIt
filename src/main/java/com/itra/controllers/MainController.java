@@ -42,7 +42,7 @@ public class MainController {
 
         Map<String, Object> tokenMap = new HashMap<String, Object>();
         if (userService.getByNickname(user.getName()) != null) {
-            throw new RuntimeException("Username already exist");
+            throw new RuntimeException("This user already exist(nickname)");
         }
         List<String> roles = new ArrayList<>();
         roles.add("DEVELOPER");

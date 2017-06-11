@@ -54,7 +54,6 @@ public class UserServiceImpl implements UserService{
         }
         return listDto;
     }
-
     public static ArrayList<Long> getIdAll(List<User> users){
         ArrayList<Long> listId = new ArrayList<>();
         for (User user: users){
@@ -62,5 +61,4 @@ public class UserServiceImpl implements UserService{
         }
         return listId;
     }
-
 }
