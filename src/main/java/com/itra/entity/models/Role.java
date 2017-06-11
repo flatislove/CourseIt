@@ -2,6 +2,7 @@ package com.itra.entity.models;
 
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+import com.itra.entity.dto.RoleDto;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.Getter;
@@ -37,6 +38,11 @@ public class Role{
 
     public Role(){
         this.name="DEVELOPER";
+    }
+
+    public Role(RoleDto roleDto){
+        this.id=roleDto.getId();
+        this.name=roleDto.getName();
     }
 
     public Role(String name) {

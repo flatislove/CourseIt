@@ -73,16 +73,16 @@ public class UserController {
     /**
      * Method for adding a appUser
      *
-     * @param appUser
+     * @param user
      * @return
      */
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     @RequestMapping(value = "/users", method = RequestMethod.POST)
-    public ResponseEntity<User> createUser(@RequestBody User appUser) {
-        if (userService.getByNickname(appUser.getUsername()) != null) {
+    public ResponseEntity<User> createUser(@RequestBody UserDto user) {
+        if (userService.getByNickname(user.getNickname()) != null) {
             throw new RuntimeException("Username already exist");
         }
-        return new ResponseEntity<User>(userService.addUser(appUser), HttpStatus.CREATED);
+        return new ResponseEntity<User>(userService.addUser(user), HttpStatus.CREATED);
     }
 
     /**
@@ -93,7 +93,7 @@ public class UserController {
      */
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     @RequestMapping(value = "/users", method = RequestMethod.PUT)
-    public User updateUser(@RequestBody User user) {
+    public User updateUser(@RequestBody UserDto user) {
         if (userService.getByNickname(user.getName()) != null
                 && userService.getByNickname(user.getName()).getId() != user.getId()) {
             throw new RuntimeException("Username already exist");

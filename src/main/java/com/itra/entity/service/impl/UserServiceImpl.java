@@ -1,8 +1,10 @@
 package com.itra.entity.service.impl;
 
 import com.itra.entity.dto.UserDto;
+import com.itra.entity.models.Role;
 import com.itra.entity.models.User;
 import com.itra.entity.repository.UserRepository;
+import com.itra.entity.service.RoleService;
 import com.itra.entity.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -14,6 +16,8 @@ public class UserServiceImpl implements UserService{
 
     @Autowired
     private UserRepository userRepository;
+    @Autowired
+    private RoleService roleService;
 
     @Override
     public UserDto getById(long id) {
@@ -22,8 +26,8 @@ public class UserServiceImpl implements UserService{
 
 
     @Override
-    public User addUser(User user) {
-        User savedUser = userRepository.saveAndFlush(user);
+    public User addUser(UserDto user) {
+        User savedUser = userRepository.saveAndFlush(new User(user,roleService));
         return savedUser;
     }
 

@@ -3,12 +3,16 @@ package com.itra.entity.models;
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+import com.itra.entity.dto.RoleDto;
+import com.itra.entity.dto.UserDto;
+import com.itra.entity.service.RoleService;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.codehaus.jackson.annotate.JsonBackReference;
 import org.codehaus.jackson.annotate.JsonManagedReference;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -50,6 +54,14 @@ public class User implements UserDetails{
 
     public User(long id) {
         this.id = id;
+    }
+
+    public User(UserDto userDto, RoleService roleService) {
+        this.email = userDto.getEmail();
+        this.name = userDto.getName();
+        this.nickname=userDto.getNickname();
+        this.password=userDto.getPassword();
+        this.role=roleService.getByIdRole(userDto.getRole());
     }
 
     public User(String name, String nickname, String email, String password) {

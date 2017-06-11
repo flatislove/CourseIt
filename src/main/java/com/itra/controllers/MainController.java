@@ -18,7 +18,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.security.Principal;
 import java.util.*;
-
+@CrossOrigin
 @RestController
 public class MainController {
 
@@ -28,7 +28,6 @@ public class MainController {
     @Autowired
     private RoleService roleService;
 
-
     /**
      * This method is used for user registration. Note: user registration is not
      * require any authentication.
@@ -37,22 +36,17 @@ public class MainController {
      * @return
      */
     @PostMapping(value = "/register")
-    public ResponseEntity<User> createUser(@RequestBody User user) {
+    public ResponseEntity<User> createUser(@RequestBody UserDto user) {
         String token = null;
-
         Map<String, Object> tokenMap = new HashMap<String, Object>();
         if (userService.getByNickname(user.getName()) != null) {
             throw new RuntimeException("Username already exist");
         }
-        List<String> roles = new ArrayList<>();
-        roles.add("DEVELOPER");
-        user.setRole(roleService.getByIdRole(3l));
-
+        user.setRole(3l);
         token = Jwts.builder().claim("roles", user.getRole()).setIssuedAt(new Date())
                 .signWith(SignatureAlgorithm.HS256, "secretkey").compact();
         tokenMap.put("token", token);
         tokenMap.put("user", user);
-
         return new ResponseEntity<User>(userService.addUser(user), HttpStatus.CREATED);
     }
     /**
