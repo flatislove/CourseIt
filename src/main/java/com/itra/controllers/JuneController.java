@@ -16,18 +16,20 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.util.Collection;
 import java.util.Map;
+
 @CrossOrigin
 @RestController
 public class JuneController {
     private RoleService roleService;
     private MessageService messageService;
 
-    public JuneController(RoleService roleService, MessageService messageService){
-        this.roleService=roleService;
-        this.messageService=messageService;
+    public JuneController(RoleService roleService, MessageService messageService) {
+        this.roleService = roleService;
+        this.messageService = messageService;
     }
+
     @GetMapping("/role")
-    public Collection<RoleDto> listRole(){
+    public Collection<RoleDto> listRole() {
         return roleService.getAll();
     }
 
@@ -38,7 +40,7 @@ public class JuneController {
 
     @GetMapping("/message")
     //@CrossOrigin(origins = "http://localhost:4200/message")
-    public Collection<MessageDto> listMessage(){
+    public Collection<MessageDto> listMessage() {
         return messageService.getAll();
     }
 }

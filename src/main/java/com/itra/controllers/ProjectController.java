@@ -19,21 +19,20 @@ public class ProjectController {
 
     private ProjectService projectService;
 
-    public ProjectController(ProjectService projectService){
-        this.projectService=projectService;
+    public ProjectController(ProjectService projectService) {
+        this.projectService = projectService;
     }
 
     @GetMapping("/projects")
-    public List<ProjectDto> listRole(){
+    public List<ProjectDto> listRole() {
         return projectService.getAll();
     }
 
     @GetMapping("/projects/{id}")
-    public ResponseEntity<ProjectDto> projectById(@PathVariable long id){
+    public ResponseEntity<ProjectDto> projectById(@PathVariable long id) {
         ProjectDto projectDto = projectService.getById(id);
-        if (projectDto==null){
+        if (projectDto == null) {
             return new ResponseEntity<ProjectDto>(HttpStatus.NO_CONTENT);
-        }
-        else return new ResponseEntity<ProjectDto>(projectDto,HttpStatus.OK);
+        } else return new ResponseEntity<ProjectDto>(projectDto, HttpStatus.OK);
     }
 }

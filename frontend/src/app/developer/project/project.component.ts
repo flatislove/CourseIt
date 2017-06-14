@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {ProjectService} from './project.service';
+import {ProjectDetailService} from '../project-detail/project-detail.service';
 
 @Component({
   selector: 'app-project',
@@ -8,9 +9,16 @@ import {ProjectService} from './project.service';
   providers:[ProjectService]
 })
 export class ProjectComponent implements OnInit {
-  constructor(private projectService:ProjectService) { }
+  constructor(
+    private projectService:ProjectService,
+    private projectDetailService:ProjectDetailService
+  ) { }
   projects=[];
   ngOnInit() {
-    this.projectService.getProjects().subscribe(resProjectsData=> {return this.projects = resProjectsData});
+    this.projectService.getProjects().subscribe(resProjectsData=>
+    {return this.projects = resProjectsData});
+  }
+  get(id:number){
+    this.projectDetailService.id_project=id;
   }
 }

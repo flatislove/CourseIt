@@ -32,12 +32,20 @@ const appRoutes : Routes = [
   {path: 'account', component: AccountMainComponent},
 
   {path: 'projects', component: ProjectComponent},
-  {path: 'projects/:id', component: ProjectDetailComponent},
+  {path: 'project/:id', component: ProjectDetailComponent},
 
   {path:'login',component:LoginComponent},
 
   {path:'',component:HomeComponent,canActivate:[AuthGuard]},
-  {path: '**',redirectTo:''}
+  {path: '**',redirectTo:''},
+
+  //admin
+  {path: 'admin/projects', component: AdminProjectComponent},
+  {path: 'admin/news', component: AdminNewsComponent},
+  {path: 'admin/project_messages', component: AdminProjectMessageComponent},
+  {path: 'admin/roles', component: AdminRolesComponent},
+  {path: 'admin/tags',component: AdminTagsComponent},
+  {path: 'admin/users',component:AdminUsersComponent}
 ];
 
 @NgModule({

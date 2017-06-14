@@ -21,6 +21,7 @@ public class UserController {
 
     /**
      * Web service for getting all the appUsers in the application.
+     *
      * @return list of all AppUser
      */
     @PreAuthorize("hasRole('ROLE_ADMIN')")
@@ -32,8 +33,7 @@ public class UserController {
     /**
      * Web service for getting a user by his ID
      *
-     * @param id
-     *            appUser ID
+     * @param id appUser ID
      * @return appUser
      */
     @PreAuthorize("hasRole('ROLE_ADMIN')")
