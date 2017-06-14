@@ -1,0 +1,15 @@
+<div class="container-fluid">
+  <div>
+    <p class="h3">
+      JSON
+    </p>
+    <div>{{jsonResponse}}
+    </div>
+  </div>
+  <div *ngFor="let news of newses">
+    <p class="h3">
+      {{news.description}}
+    </p>
+    <div>{{news.text}}</div>
+  </div>
+</div>

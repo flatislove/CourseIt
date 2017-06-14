@@ -1,15 +1,17 @@
 import {Component, OnInit} from '@angular/core';
 import {NewsMainService} from './news-main.service';
-import {Routes} from '@angular/router';
 @Component({
   selector:'news-main',
-  template:'<h3>News</h3><ul *ngFor="let news of newsList"><li>{{news.description}}</li></ul>',
+ templateUrl:'./news-main.component.html',
+  styleUrls: ['./news-main.component.css']
 })
 export class NewsMainComponent implements OnInit{
   newsList=[];
   constructor(private newsService:NewsMainService){}
   ngOnInit(){
-    this.newsService.getNews()
-      .subscribe(resNewsData=>this.newsList=resNewsData);
+    this.newsService.getNews().subscribe(resNewsData=> {return this.newsList = resNewsData});
+  }
+  redirectToNewsDetail(){
+   // this.router.navigate(['']);
   }
 }

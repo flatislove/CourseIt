@@ -23,12 +23,12 @@ public class ProjectController {
         this.projectService=projectService;
     }
 
-    @GetMapping("/project")
+    @GetMapping("/projects")
     public List<ProjectDto> listRole(){
         return projectService.getAll();
     }
 
-    @GetMapping("/project/{id}")
+    @GetMapping("/projects/{id}")
     public ResponseEntity<ProjectDto> projectById(@PathVariable long id){
         ProjectDto projectDto = projectService.getById(id);
         if (projectDto==null){

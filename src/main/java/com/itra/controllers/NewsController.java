@@ -7,20 +7,17 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import java.util.List;
-
-@RestController
 @CrossOrigin
-@RequestMapping(value = "/app")
+@RestController
 public class NewsController {
 
     @Autowired
     NewsService newsService;
-
+    @ResponseBody
         @GetMapping(value = "/news")
         public List<NewsDto> getNews() {
         return newsService.getAll();
  }
-
         @GetMapping(value = "/news/{id}")
         public ResponseEntity<NewsDto> getNewsById(@PathVariable long id){
             NewsDto newsDto = newsService.getById(id);
@@ -29,4 +26,6 @@ public class NewsController {
             }
             else return new ResponseEntity<NewsDto>(newsDto,HttpStatus.OK);
         }
+        //@PostMapping(value = "/news")
+
 }

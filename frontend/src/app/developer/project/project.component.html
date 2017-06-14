@@ -1,0 +1,12 @@
+<h2>
+  Projects List
+</h2>
+<div class="container-fluid">
+  <ul *ngFor="let project of projects">
+    <div class="row">
+        <div class="jumbotron"><h2>{{project.description}}</h2>
+          <p><a class="btn btn-primary btn-lg" href="./project/{project.id}" role="button">Learn more</a></p>
+        </div>
+    </div>
+  </ul>
+</div>
