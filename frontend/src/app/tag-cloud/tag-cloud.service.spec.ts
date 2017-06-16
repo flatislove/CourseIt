@@ -1,16 +1,16 @@
 /* tslint:disable:no-unused-variable */
 
 import { TestBed, async, inject } from '@angular/core/testing';
-import { ProjectMainService } from './project-main.service';
+import { TagCloudService } from './tag-cloud.service';
 
-describe('ProjectMainService', () => {
+describe('TagCloudService', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
-      providers: [ProjectMainService]
+      providers: [TagCloudService]
     });
   });
 
-  it('should ...', inject([ProjectMainService], (service: ProjectMainService) => {
+  it('should ...', inject([TagCloudService], (service: TagCloudService) => {
     expect(service).toBeTruthy();
   }));
 });

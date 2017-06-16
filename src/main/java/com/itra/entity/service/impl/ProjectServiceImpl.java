@@ -21,9 +21,9 @@ public class ProjectServiceImpl implements ProjectService {
         return this.toDto(projectRepository.findAll());
     }
 
-    public List<ProjectDto> toDto(List<Project> list){
+    public List<ProjectDto> toDto(List<Project> list) {
         List<ProjectDto> listDto = new ArrayList<>();
-        for (Project project: list){
+        for (Project project : list) {
             listDto.add(new ProjectDto(project));
         }
         return listDto;
@@ -32,7 +32,7 @@ public class ProjectServiceImpl implements ProjectService {
     @Override
     public ProjectDto getById(long id) {
 
-        return new ProjectDto(projectRepository.findOne(id));
+        return new ProjectDto(projectRepository.findById(id));
     }
 
     @Override
@@ -56,9 +56,9 @@ public class ProjectServiceImpl implements ProjectService {
         return projectRepository.saveAndFlush(tag);
     }
 
-    public static ArrayList<Long> getIdAll(List<Project> projects){
+    public static ArrayList<Long> getIdAll(List<Project> projects) {
         ArrayList<Long> listId = new ArrayList<>();
-        for (Project project: projects){
+        for (Project project : projects) {
             listId.add(project.getId());
         }
         return listId;

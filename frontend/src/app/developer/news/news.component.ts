@@ -1,6 +1,7 @@
-import {Component, OnDestroy, OnInit} from '@angular/core';
+import {Component, HostBinding, OnDestroy, OnInit} from '@angular/core';
 import {NewsMainService} from '../news-main/news-main.service';
 import {NewsService} from './news.service';
+import {slideInDownAnimation} from '../../animations';
 
 interface NewsJson{
   description:string;
@@ -11,9 +12,13 @@ interface NewsJson{
   selector: 'app-news',
   templateUrl: './news.component.html',
   styleUrls: ['./news.component.css'],
-  providers:[NewsService]
+  providers:[NewsService],
+  animations: [slideInDownAnimation]
 })
 export class NewsComponent implements OnInit,OnDestroy {
+  @HostBinding('@routeAnimation') routeAnimation = true;
+  @HostBinding('style.display') display = 'block';
+  @HostBinding('style.position') position = 'absolute';
 
   private jsonResponse:string;
   private newses: Array<NewsJson>;

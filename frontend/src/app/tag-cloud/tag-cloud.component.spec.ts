@@ -3,21 +3,21 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { DebugElement } from '@angular/core';
 
-import { ProjectMainComponent } from './project-main.component';
+import { TagCloudComponent } from './tag-cloud.component';
 
-describe('ProjectMainComponent', () => {
-  let component: ProjectMainComponent;
-  let fixture: ComponentFixture<ProjectMainComponent>;
+describe('TagCloudComponent', () => {
+  let component: TagCloudComponent;
+  let fixture: ComponentFixture<TagCloudComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ ProjectMainComponent ]
+      declarations: [ TagCloudComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(ProjectMainComponent);
+    fixture = TestBed.createComponent(TagCloudComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

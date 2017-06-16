@@ -1,3 +1,23 @@
-<h2>Details</h2>
-<div>{{project.description}}</div>
-<div>{{project.name}}</div>
+<h2>PRojects Details</h2>
+<div *ngIf="hero">
+  <h3>"{{ project.name }}"</h3>
+  <div>
+    <label>Id: </label>{{ project.id }}</div>
+  <div>
+    <label>Name: </label>
+    <input [(ngModel)]="hero.name" placeholder="name"/>
+  </div>
+<div></div>
+    <button class="btn btn-primary btn-lg" (click)="gotoHeroes()">Back</button>
+</div>
+
+<!--<div *ngIf="project">-->
+  <!--<h2>{{project.name}} details!</h2>-->
+  <!--<div>-->
+    <!--<label>id: </label>{{project.id}}</div>-->
+  <!--<div>-->
+    <!--<label>name: </label>-->
+    <!--<input [(ngModel)]="project.name" placeholder="name" />-->
+  <!--</div>-->
+  <!--<button (click)="goBack()">Back</button>-->
+<!--</div>-->

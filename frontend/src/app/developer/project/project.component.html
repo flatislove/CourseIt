@@ -1,12 +1,13 @@
 <h2>
   Projects List
 </h2>
-<div class="container-fluid">
-  <ul *ngFor="let project of projects">
-    <div class="row">
-        <div class="jumbotron"><h2>{{project.description}}</h2>
-          <p><a class="btn btn-primary btn-lg" (click)="get(project.id)" role="button">Learn more</a></p>
-        </div>
-    </div>
-  </ul>
-</div>
+
+<ul class="container">
+  <div *ngFor="let project of projects | async"
+      [class.selected]="isSelected(project)"
+      (click)="onSelect(project)">
+    <div class="jumbotron"> <span class="badge">{{ project.id }}</span> {{ project.name }}</div>
+
+  </div>
+</ul>
+<button routerLink="/sidekicks">Go to side</button>

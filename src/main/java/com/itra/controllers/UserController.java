@@ -25,7 +25,7 @@ public class UserController {
      * @return list of all AppUser
      */
     @PreAuthorize("hasRole('ROLE_ADMIN')")
-    @GetMapping(value = "/users")
+    @GetMapping(value = "admin/users")
     public List<UserDto> users() {
         return userService.getAll();
     }
@@ -37,7 +37,7 @@ public class UserController {
      * @return appUser
      */
     @PreAuthorize("hasRole('ROLE_ADMIN')")
-    @GetMapping(value = "/users/{id}")
+    @GetMapping(value = "admin/users/{id}")
     public ResponseEntity<UserDto> userById(@PathVariable long id) {
         UserDto appUser = userService.getById(id);
         if (appUser == null) {
@@ -55,7 +55,7 @@ public class UserController {
      * @return
      */
     @PreAuthorize("hasRole('ROLE_ADMIN')")
-    @RequestMapping(value = "/users/{id}", method = RequestMethod.DELETE)
+    @RequestMapping(value = "admin/users/{id}", method = RequestMethod.DELETE)
     public ResponseEntity<UserDto> deleteUser(@PathVariable Long id) {
         UserDto appUser = userService.getById(id);
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
@@ -77,7 +77,7 @@ public class UserController {
      * @return
      */
     @PreAuthorize("hasRole('ROLE_ADMIN')")
-    @RequestMapping(value = "/users", method = RequestMethod.POST)
+    @RequestMapping(value = "admin/users", method = RequestMethod.POST)
     public ResponseEntity<User> createUser(@RequestBody User appUser) {
         if (userService.getByNickname(appUser.getUsername()) != null) {
             throw new RuntimeException("Username already exist");
@@ -92,7 +92,7 @@ public class UserController {
      * @return modified appUser
      */
     @PreAuthorize("hasRole('ROLE_ADMIN')")
-    @RequestMapping(value = "/users", method = RequestMethod.PUT)
+    @RequestMapping(value = "admin/users", method = RequestMethod.PUT)
     public User updateUser(@RequestBody User user) {
         if (userService.getByNickname(user.getName()) != null
                 && userService.getByNickname(user.getName()).getId() != user.getId()) {

@@ -12,20 +12,17 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 @EnableWebSecurity
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
-
     // This method is for overriding some configuration of the WebSecurity
     // If you want to ignore some request or request patterns then you can
     // specify that inside this method
     @Override
     public void configure(WebSecurity web) throws Exception {
 
-
         web.ignoring()
                 // ignoring the "/", "/index.html", "/app/**", "/register",
                 // "/favicon.ico"
-                .antMatchers("/", "/index.html","/projects","/project/**", "/app/**", "/register", "/authenticate", "/news","/news/**","/favicon.ico");
+                .antMatchers("/", "/rrr", "/index.html", "/projects/*", "/projects", "/projects/*", "/app/**", "/register", "/authenticate", "/news", "/news/**", "/favicon.ico");
     }
-
 
     // This method is used for override HttpSecurity of the controller Application.
     // We can specify our authorization criteria inside this method.
@@ -46,6 +43,4 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 // disabling the CSRF - Cross Site Request Forgery
                 .csrf().disable();
     }
-
-
 }

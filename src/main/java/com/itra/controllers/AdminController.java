@@ -11,7 +11,7 @@ import java.util.List;
 
 @CrossOrigin
 @RestController
-public class SimpleController {
+public class AdminController {
     @Autowired
     private NewsService newsService;
     @Autowired
