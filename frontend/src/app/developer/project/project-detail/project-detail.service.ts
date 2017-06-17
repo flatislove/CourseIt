@@ -6,5 +6,5 @@ import { environment } from 'environments/environment';
 @Injectable()
 export class ProjectDetailService {
   constructor( private http:Http) {}
-  private url:string='${environment.serverUrl}/project/';
+  private url:string='http://localhost/project/';
 }

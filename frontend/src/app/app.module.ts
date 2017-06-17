@@ -1,5 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser';
-import {ProjectDetailService} from './developer/project-detail/project-detail.service'
+import {ProjectDetailService} from './developer/project/project-detail/project-detail.service'
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import {BaseRequestOptions, HttpModule, JsonpModule} from '@angular/http';
@@ -11,8 +11,8 @@ import { LoginComponent } from './login/login.component';
 import {AuthGuard} from './_guards/auth.guard';
 import {AuthenticationService} from './_services/authentication.service';
 import {UserService} from './_services/user.service';
-import { ProjectDetailComponent } from './developer/project-detail/project-detail.component';
-import { AccountMainComponent } from './account-main/account-main.component';
+import { ProjectDetailComponent } from './developer/project/project-detail/project-detail.component';
+import { AccountMainComponent } from './developer/account-main/account-main.component';
 import { NewsComponent } from './developer/news/news.component';
 import {NewsService} from './developer/news/news.service';
 import { ProjectComponent } from './developer/project/project.component';
@@ -26,8 +26,15 @@ import { AdminRolesComponent } from './admin/admin-roles/admin-roles.component';
 import {AlertService} from './_services/alert.service';
 import {AlertComponent} from './_directives/alert.component';
 import {RegisterComponent} from './register/register.component';
+import { MessageComponent } from './developer/project/message/message.component';
+import {componentModuleUrl} from '@angular/compiler';
+import { MarkdownComponent } from './developer/project/markdown/markdown.component';
+import { FilesComponent } from './developer/project/files/files.component';
 
 const appRoutes : Routes = [
+
+
+
   {path: 'news', component: NewsComponent},
   {path: 'news/:id', component: NewsDetailComponent},
 
@@ -35,6 +42,9 @@ const appRoutes : Routes = [
 
   {path: 'projects', component: ProjectComponent},
   {path: 'projects/:id', component: ProjectDetailComponent},
+  {path: 'projects/:id/files',component: FilesComponent},
+  {path: 'projects/:id/message',component: MessageComponent},
+  {path: 'projects/:id/markdown',component: MessageComponent},
 
   {path:'login',component:LoginComponent},
   {path:'register',component:RegisterComponent},
@@ -55,7 +65,7 @@ const appRoutes : Routes = [
                   ProjectDetailComponent, AccountMainComponent, NewsComponent,
                   ProjectComponent, AdminUsersComponent, AdminProjectComponent,
                   AdminNewsComponent, AdminProjectMessageComponent, AdminTagsComponent,
-                  AdminRolesComponent,AlertComponent,LoginComponent,RegisterComponent],
+                  AdminRolesComponent,AlertComponent,LoginComponent,RegisterComponent, MessageComponent, MarkdownComponent, FilesComponent],
   imports:        [BrowserModule, FormsModule, HttpModule, RouterModule.forRoot(appRoutes), JsonpModule],
   providers:      [AuthGuard,ProjectDetailService,AuthenticationService,UserService,
                   BaseRequestOptions,NewsService,ProjectService,AlertService,UserService],

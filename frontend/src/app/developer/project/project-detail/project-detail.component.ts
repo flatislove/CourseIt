@@ -1,8 +1,9 @@
 import {Component, HostBinding, OnInit} from '@angular/core';
 import {ActivatedRoute, Params, Router} from '@angular/router';
-import {Project, ProjectService} from '../project/project.service';
+import {Project, ProjectService} from '../project.service';
 import 'rxjs/add/operator/switchMap';
-import {slideInDownAnimation} from '../../animations';
+import {slideInDownAnimation} from '../../../animations';
+import {environment} from '../../../../environments/environment';
 
 
 @Component({
@@ -11,7 +12,6 @@ import {slideInDownAnimation} from '../../animations';
   styleUrls: ['./project-detail.component.css'],
   animations: [slideInDownAnimation]
 })
-
 
 export class ProjectDetailComponent implements OnInit {
   @HostBinding('@routeAnimation') routeAnimation = true;
@@ -29,6 +29,7 @@ export class ProjectDetailComponent implements OnInit {
     this.route.params
       .switchMap((params:Params)=>this.projectService.getProject(+params['id']))
       .subscribe((project:Project)=>this.project=project);
+    //`${environment.serverUrl}`
   }
 
   gotoNewses(){
