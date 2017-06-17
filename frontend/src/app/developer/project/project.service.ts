@@ -22,7 +22,7 @@ export class ProjectService {
   }
 
 
-  private url: string = 'http://localhost:8080/projects';
+  private url: string = '${environment.serverUrl}/projects';
 
   getProjects() {
     return projectMockPromise;

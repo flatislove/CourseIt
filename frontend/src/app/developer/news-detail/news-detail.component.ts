@@ -1,9 +1,9 @@
 import {Component, HostBinding, OnInit} from '@angular/core';
-import {NewsMainService} from '../news-main/news-main.service';
 import {slideInDownAnimation} from '../../animations';
+import {News, NewsService} from '../news/news.service';
+import {ActivatedRoute, Router, Params} from '@angular/router';
 @Component({
   selector: 'news-detail',
-  //template:'',
   templateUrl: './news-detail.component.html',
   styleUrls: ['./news-detail.component.css'],
   animations: [slideInDownAnimation]
@@ -13,13 +13,22 @@ export class NewsDetailComponent implements OnInit {
   @HostBinding('style.display') display = 'block';
   @HostBinding('style.position') position = 'absolute';
 
-  newsList=[];
+  news:News;
 
-  constructor(private newsService:NewsMainService) { }
+  constructor(private route: ActivatedRoute,
+              private newsService: NewsService,
+              private router: Router) {
+  }
 
-  ngOnInit() {
-    this.newsService.getNews()
-      .subscribe(resNewsData=>this.newsList=resNewsData);
+  ngOnInit(): void {
+    this.route.params
+      .switchMap((params:Params)=>this.newsService.getNews(+params['id']))
+      .subscribe((news:News)=>this.news=news);
+  }
+
+  gotoProjects(){
+    let projectId = this.news ? this.news.id:null;
+    this.router.navigate(['/news',{id:projectId,foo:'foo'}]);
   }
 
 }

@@ -1,15 +1,11 @@
 package com.itra.controllers;
 
-import com.itra.entity.dto.ProjectDto;
-import com.itra.entity.service.ProjectService;
-import org.springframework.http.HttpStatus;
+import com.itra.service.ProjectService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
-
-import java.util.List;
 
 @RestController
 @CrossOrigin

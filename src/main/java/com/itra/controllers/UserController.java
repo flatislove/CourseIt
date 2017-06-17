@@ -1,10 +1,13 @@
 package com.itra.controllers;
 
-import com.itra.entity.dto.UserDto;
+import com.itra.dto.UserDto;
 import com.itra.entity.models.User;
-import com.itra.entity.service.UserService;
+import com.itra.entity.repository.UserRepository;
+import com.itra.service.UserService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
@@ -14,192 +17,73 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping(value = "/api")
-public class UserController {
-    @Autowired
-    private UserService userService;
-
-    /**
-     * Web service for getting all the appUsers in the application.
-     *
-     * @return list of all AppUser
-     */
-    @PreAuthorize("hasRole('ROLE_ADMIN')")
-    @GetMapping(value = "admin/users")
-    public List<UserDto> users() {
-        return userService.getAll();
+@RequiredArgsConstructor
+@RequestMapping(value = "/users",produces = MediaType.APPLICATION_JSON_VALUE)
+public class UserController{
+    private final UserService userService;
+    @PreAuthorize("hasRole('ADMIN')")
+    @GetMapping
+    public List<UserDto> fidAll(){
+        return this.userService.getAll();
     }
-
-    /**
-     * Web service for getting a user by his ID
-     *
-     * @param id appUser ID
-     * @return appUser
-     */
-    @PreAuthorize("hasRole('ROLE_ADMIN')")
-    @GetMapping(value = "admin/users/{id}")
-    public ResponseEntity<UserDto> userById(@PathVariable long id) {
-        UserDto appUser = userService.getById(id);
-        if (appUser == null) {
-
-            return new ResponseEntity<UserDto>(HttpStatus.NO_CONTENT);
-        } else {
-            return new ResponseEntity<UserDto>(appUser, HttpStatus.OK);
-        }
-    }
-
-    /**
-     * Method for deleting a user by his ID
-     *
-     * @param id
-     * @return
-     */
-    @PreAuthorize("hasRole('ROLE_ADMIN')")
-    @RequestMapping(value = "admin/users/{id}", method = RequestMethod.DELETE)
-    public ResponseEntity<UserDto> deleteUser(@PathVariable Long id) {
-        UserDto appUser = userService.getById(id);
-        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        String loggedUsername = auth.getName();
-        if (appUser == null) {
-            return new ResponseEntity<UserDto>(HttpStatus.NO_CONTENT);
-        } else if (appUser.getName().equalsIgnoreCase(loggedUsername)) {
-            throw new RuntimeException("You cannot delete your account");
-        } else {
-            userService.delete(appUser.getId());
-            return new ResponseEntity<UserDto>(appUser, HttpStatus.OK);
-        }
-    }
-
-    /**
-     * Method for adding a appUser
-     *
-     * @param appUser
-     * @return
-     */
-    @PreAuthorize("hasRole('ROLE_ADMIN')")
-    @RequestMapping(value = "admin/users", method = RequestMethod.POST)
-    public ResponseEntity<User> createUser(@RequestBody User appUser) {
-        if (userService.getByNickname(appUser.getUsername()) != null) {
-            throw new RuntimeException("Username already exist");
-        }
-        return new ResponseEntity<User>(userService.addUser(appUser), HttpStatus.CREATED);
-    }
-
-    /**
-     * Method for editing an user details
-     *
-     * @param user
-     * @return modified appUser
-     */
-    @PreAuthorize("hasRole('ROLE_ADMIN')")
-    @RequestMapping(value = "admin/users", method = RequestMethod.PUT)
-    public User updateUser(@RequestBody User user) {
-        if (userService.getByNickname(user.getName()) != null
-                && userService.getByNickname(user.getName()).getId() != user.getId()) {
-            throw new RuntimeException("Username already exist");
-        }
-        return userService.addUser(user);
-    }
-
-
 }
 
-//    // ------------------------
-//    // PUBLIC METHODS
-//    // ------------------------
-//
-//    /**
-//     * /create  --> Create a new user and save it in the entity.
-//     *
-//     * @param email User's email
-//     * @param name User's name
-//     * @return A string describing if the user is succesfully created or not.
-//     */
-//    @RequestMapping("/create")
-//    @ResponseBody
-//    public String create(String name, String nickname,String email,String password) {
-//        User user = null;
-//        Role role =null;
-//        try {
-//            user = new User(name, nickname, email, password);
-//            userDao.save(user);
-//        }
-//        catch (Exception ex) {
-//            return "Error creating the user: " + ex.toString();
-//        }
-//        return "User succesfully created! (id = " + user.getName() + ")";
-//    }
-//
-//    /**
-//     * /delete  --> Delete the user having the passed id.
-//     *
-//     * @param id The id of the user to delete
-//     * @return A string describing if the user is succesfully deleted or not.
-//     */
-//    @RequestMapping("/delete")
-//    @ResponseBody
-//    public String delete(long id) {
-//        try {
-//            User user = new User(id);
-//            userDao.delete(user);
-//        }
-//        catch (Exception ex) {
-//            return "Error deleting the user: " + ex.toString();
-//        }
-//        return "User succesfully deleted!";
-//    }
-//
-//    /**
-//     * /get-by-email  --> Return the id for the user having the passed email.
-//     *
-//     * @param email The email to search in the entity.
-//     * @return The user id or a message error if the user is not found.
-//     */
-//    @RequestMapping("/get-by-email")
-//    @ResponseBody
-//    public String getByEmail(String email) {
-//        String userId;
-//        try {
-//            User user = userDao.findByEmail(email);
-//            userId = String.valueOf(user.getId());
-//        }
-//        catch (Exception ex) {
-//            return "User not found";
-//        }
-//        return "The user id is: " + userId;
-//    }
-//
-//    /**
-//     * /update  --> Update the email and the name for the user in the entity
-//     * having the passed id.
-//     *
-//     * @param id The id for the user to update.
-//     * @param email The new email.
-//     * @param name The new name.
-//     * @return A string describing if the user is succesfully updated or not.
-//     */
-//    @RequestMapping("/update")
-//    @ResponseBody
-//    public String updateUser(long id, String name, String nickname,String email) {
-//        try {
-//            User user = userDao.findOne(id);
-//            user.setEmail(email);
-//            user.setName(name);
-//            user.setNickname(nickname);
-//
-//            userDao.save(user);
-//        }
-//        catch (Exception ex) {
-//            return "Error updating the user: " + ex.toString();
-//        }
-//        return "User succesfully updated!";
-//    }
-//
-//    // ------------------------
-//    // PRIVATE FIELDS
-//    // ------------------------
-//
+//@RestController
+//@RequestMapping(value = "/api", produces = MediaType.APPLICATION_JSON_VALUE)
+//public class UserController {
 //    @Autowired
-//    private UserRepository userDao;
+//    private UserService userService;
 //
+//    @PreAuthorize("hasRole('ADMIN')")
+//    @GetMapping(value = "admin/users")
+//    public List<UserDto> users() {
+//        return userService.getAll();
+//    }
+//
+//    @PreAuthorize("hasRole('ADMIN')")
+//    @GetMapping(value = "admin/users/{id}")
+//    public ResponseEntity<UserDto> userById(@PathVariable long id) {
+//        UserDto user = userService.getById(id);
+//        if (user == null) {
+//
+//            return new ResponseEntity<UserDto>(HttpStatus.NO_CONTENT);
+//        } else {
+//            return new ResponseEntity<UserDto>(user, HttpStatus.OK);
+//        }
+//    }
+//
+//    @PreAuthorize("hasRole('ADMIN')")
+//    @DeleteMapping(value = "admin/users/{id}")
+//    public ResponseEntity<UserDto> deleteUser(@PathVariable Long id) {
+//        UserDto user = userService.getById(id);
+//        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+//        String loggedUsername = auth.getName();
+//        if (user == null) {
+//            return new ResponseEntity<UserDto>(HttpStatus.NO_CONTENT);
+//        } else if (user.getName().equalsIgnoreCase(loggedUsername)) {
+//            throw new RuntimeException("You cannot delete your account");
+//        } else {
+//            userService.delete(user.getId());
+//            return new ResponseEntity<UserDto>(user, HttpStatus.OK);
+//        }
+//    }
+//
+//    @PreAuthorize("hasRole('ADMIN')")
+//    @PostMapping(value = "admin/users")
+//    public ResponseEntity<User> createUser(@RequestBody User user) {
+//        if (userService.getByNickname(user.getUsername()) != null) {
+//            throw new RuntimeException("Username already exist");
+//        }
+//        return new ResponseEntity<User>(userService.addUser(user), HttpStatus.CREATED);
+//    }
+//
+//    @PreAuthorize("hasRole('ROLE_ADMIN')")
+//    @PutMapping(value = "admin/users")
+//    public User updateUser(@RequestBody User user) {
+//        if (userService.getByNickname(user.getName()) != null
+//                && userService.getByNickname(user.getName()).getId() != user.getId()) {
+//            throw new RuntimeException("Username already exist");
+//        }
+//        return userService.addUser(user);
+//    }
 //}

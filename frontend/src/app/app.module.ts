@@ -4,7 +4,6 @@ import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import {BaseRequestOptions, HttpModule, JsonpModule} from '@angular/http';
 import { AppComponent } from './app.component';
-import { NewsMainComponent } from './developer/news-main/news-main.component';
 import { NewsDetailComponent } from './developer/news-detail/news-detail.component';
 import {RouterModule, Routes} from '@angular/router';
 import { HomeComponent } from './developer/home/home.component';
@@ -27,10 +26,9 @@ import { AdminRolesComponent } from './admin/admin-roles/admin-roles.component';
 import {AlertService} from './_services/alert.service';
 import {AlertComponent} from './_directives/alert.component';
 import {RegisterComponent} from './register/register.component';
-import { TagCloudComponent } from './tag-cloud/tag-cloud.component';
 
 const appRoutes : Routes = [
-  {path: 'news', component: NewsMainComponent},
+  {path: 'news', component: NewsComponent},
   {path: 'news/:id', component: NewsDetailComponent},
 
   {path: 'account', component: AccountMainComponent},
@@ -52,14 +50,12 @@ const appRoutes : Routes = [
   {path: 'admin/tags',component: AdminTagsComponent},
   {path: 'admin/users',component:AdminUsersComponent}
 ];
-
 @NgModule({
-  declarations:   [AppComponent, NewsMainComponent, NewsDetailComponent,
-                  HomeComponent, LoginComponent,
+  declarations:   [AppComponent,NewsDetailComponent,HomeComponent, LoginComponent,
                   ProjectDetailComponent, AccountMainComponent, NewsComponent,
                   ProjectComponent, AdminUsersComponent, AdminProjectComponent,
                   AdminNewsComponent, AdminProjectMessageComponent, AdminTagsComponent,
-                  AdminRolesComponent,AlertComponent,LoginComponent,RegisterComponent, TagCloudComponent],
+                  AdminRolesComponent,AlertComponent,LoginComponent,RegisterComponent],
   imports:        [BrowserModule, FormsModule, HttpModule, RouterModule.forRoot(appRoutes), JsonpModule],
   providers:      [AuthGuard,ProjectDetailService,AuthenticationService,UserService,
                   BaseRequestOptions,NewsService,ProjectService,AlertService,UserService],

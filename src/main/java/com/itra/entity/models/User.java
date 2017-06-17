@@ -3,6 +3,7 @@ package com.itra.entity.models;
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+import com.itra.authentication.model.UserRole;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -58,6 +59,12 @@ public class User implements UserDetails{
         this.nickname=nickname;
         this.password=password;
         this.role=new Role();
+    }
+
+    public User(String nickname, String password, UserRole role) {
+        this.nickname=nickname;
+        this.password=password;
+        this.role=new Role(role.name());
     }
 
     public User(String subject, String s, List<SimpleGrantedAuthority> authorities) {

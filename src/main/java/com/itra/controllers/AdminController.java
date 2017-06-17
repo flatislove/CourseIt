@@ -1,7 +1,7 @@
 package com.itra.controllers;
 
-import com.itra.entity.dto.*;
-import com.itra.entity.service.*;
+import com.itra.dto.*;
+import com.itra.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;

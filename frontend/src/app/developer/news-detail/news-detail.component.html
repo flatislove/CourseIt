@@ -1,6 +1,12 @@
-<h2>News Detail</h2>
-<ul *ngFor="let news of newsList">
-  <li>{{news.description}}. {{news.id}} - {{news.text}}
-  </li>
-</ul>
-
+<h2>News Details</h2>
+<div *ngIf="news">
+  <h3>"{{ news.name }}"</h3>
+  <div>
+    <label>Id: </label>{{ news.id }}</div>
+  <div>
+    <label>Name: </label>
+    <input [(ngModel)]="news.subscription" placeholder="subscription"/>
+  </div>
+  <div></div>
+  <button class="btn btn-primary btn-lg" (click)="gotoNewses()">Back</button>
+</div>

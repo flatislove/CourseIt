@@ -5,6 +5,15 @@ import 'rxjs/add/operator/switchMap';
 import {Observable} from 'rxjs/Observable';
 import {slideInDownAnimation} from '../../animations';
 
+export class User {
+
+  constructor(public id:number,public email:string,public name:string,
+  public nickname:string,public photo:string,public role:string){}
+}
+
+let projjjj = [
+  new User(11, 'maillll', 'vlad', 'flatislove','urlllldld','ADMIN')];
+
 @Component({
   selector: 'app-project',
   templateUrl: './project.component.html',
@@ -16,7 +25,7 @@ export class ProjectComponent implements OnInit {
   @HostBinding('@routeAnimation') routeAnimation = true;
   @HostBinding('style.display') display = 'block';
   @HostBinding('style.position') position = 'absolute';
-  //projects=[];
+
   projects: Observable<Project[]>;
   private selectedId: number;
 

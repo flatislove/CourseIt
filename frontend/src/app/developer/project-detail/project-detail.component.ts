@@ -31,8 +31,8 @@ export class ProjectDetailComponent implements OnInit {
       .subscribe((project:Project)=>this.project=project);
   }
 
-  gotoProjects(){
+  gotoNewses(){
     let projectId = this.project ? this.project.id:null;
-    this.router.navigate(['/projects',{id:projectId,foo:'foo'}]);
+    this.router.navigate(['/projects']);
   }
 }

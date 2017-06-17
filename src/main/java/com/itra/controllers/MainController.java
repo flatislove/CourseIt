@@ -1,10 +1,9 @@
 package com.itra.controllers;
 
-import com.itra.entity.dto.UserDto;
-import com.itra.entity.models.Role;
+import com.itra.dto.UserDto;
 import com.itra.entity.models.User;
-import com.itra.entity.service.RoleService;
-import com.itra.entity.service.UserService;
+import com.itra.service.RoleService;
+import com.itra.service.UserService;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import org.springframework.beans.factory.annotation.Autowired;

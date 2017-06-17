@@ -1,12 +1,10 @@
 import {Component, HostBinding, OnDestroy, OnInit} from '@angular/core';
-import {NewsMainService} from '../news-main/news-main.service';
-import {NewsService} from './news.service';
+import {News, NewsService} from './news.service';
 import {slideInDownAnimation} from '../../animations';
-
-interface NewsJson{
-  description:string;
-  text:string;
-}
+import 'rxjs/add/operator/switchMap';
+import {Observable} from 'rxjs/Observable';
+import {ActivatedRoute, Params, Router} from '@angular/router';
+import {ProjectService} from '../project/project.service';
 
 @Component({
   selector: 'app-news',
@@ -15,30 +13,33 @@ interface NewsJson{
   providers:[NewsService],
   animations: [slideInDownAnimation]
 })
-export class NewsComponent implements OnInit,OnDestroy {
+export class NewsComponent implements OnInit{
   @HostBinding('@routeAnimation') routeAnimation = true;
   @HostBinding('style.display') display = 'block';
   @HostBinding('style.position') position = 'absolute';
 
-  private jsonResponse:string;
-  private newses: Array<NewsJson>;
-  private subscription;
-  constructor(private newsService:NewsService) { }
+  newses: Observable<News[]>;
+  private selectedId: number;
+
+  constructor(private newsService: NewsService,
+              private route: ActivatedRoute,
+              private router: Router) {
+  }
 
   ngOnInit() {
-    this.subscription=this.newsService.getNews()
-      .subscribe(
-        (data)=>{
-          this.jsonResponse=JSON.stringify(data);
-          this.newses=data;
-          console.log('jsonResponse: ', this.jsonResponse)
-          console.log('newses: ', this.newses)
-        },
-        (err)=>console.log(err),
-        ()=>console.log('compltete')
-      );
+    this.newses = this.route.params
+      .switchMap((params: Params) => {
+        this.selectedId = +params['id'];
+        return this.newsService.getNewses();
+      })
   }
-  ngOnDestroy(){
-    this.subscription.unsubscribe();
+
+  isSelected(news: News) {
+    return news.id === this.selectedId;
   }
+
+  onSelect(news: News) {
+    this.router.navigate(['/news', news.id]);
+  }
+
 }

@@ -4,10 +4,6 @@ import 'rxjs/add/operator/map';
 
 @Injectable()
 export class NewsDetailService {
-  private url: string="http://localhost:8080/news";
+  private url: string='${environment.serverUrl}/news/';
   constructor(private http:Http) {}
-  getNews(){
-    return this.http.get(this.url)
-      .map((response:Response) => response.json())
-  }
 }
