@@ -2,30 +2,43 @@
 import { Injectable } from '@angular/core';
 import { Http, Headers, Response } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
+import {AuthConfigConsts, AuthHttp} from 'angular2-jwt';
 import 'rxjs/add/operator/map'
+import {Router} from '@angular/router';
+import {environment} from '../../environments/environment';
 
 @Injectable()
 export class AuthenticationService {
-  constructor(private http: Http) { }
+  constructor(private http: Http,private authHttp: AuthHttp, private router: Router) { }
 
   login(username: string, password: string) {
-    return this.http.post('/api/authenticate', JSON.stringify({ username: username, password: password }))
-      .map((response: Response) => {
-        // login successful if there's a jwt token in the response
-        let user = response.json();
-        if (user && user.token) {
-          // store user details and jwt token in local storage to keep user logged in between page refreshes
-          localStorage.setItem('currentUser', JSON.stringify(user));
-        }
+    let headers = new Headers();
+    headers.append('Content-Type', 'application/json');
+
+    return this.http
+      .post(
+        `${environment.serverUrl}auth/login`,
+        JSON.stringify({username, password}),
+        {headers}
+      )
+      .map(res => {
+        return res.json();
+      })
+      .do(token => {
+        localStorage.setItem(AuthConfigConsts.DEFAULT_TOKEN_NAME, token.token);
       });
   }
 
   logout() {
-    // remove user from local storage to log user out
-    localStorage.removeItem('currentUser');
+    localStorage.removeItem(AuthConfigConsts.DEFAULT_TOKEN_NAME);
+    localStorage.removeItem('user');
+    this.router.navigate(['/login'])
+  }
+
+  getMe() {
+    return this.authHttp.get(`${environment.serverUrl}auth/me`).map(res => res.json());
   }
 }
-
 
 
 

@@ -1,9 +1,7 @@
 import {Component, HostBinding, OnInit} from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
-import {AuthenticationService} from '../_services/authentication.service';
-import {AlertService} from '../_services/alert.service';
-import {slideInDownAnimation} from '../animations';
-
+import {AuthenticationService} from '../../_services/authentication.service';
+import {slideInDownAnimation} from '../../animations';
 
 @Component({
   moduleId: module.id,
@@ -18,31 +16,35 @@ export class LoginComponent implements OnInit {
   model: any = {};
   loading = false;
   returnUrl: string;
+  errorMessage: string;
 
   constructor(
     private route: ActivatedRoute,
     private router: Router,
-    private authenticationService: AuthenticationService,
-    private alertService: AlertService) { }
+    private authenticationService: AuthenticationService) { }
 
   ngOnInit() {
     // reset login status
-    this.authenticationService.logout();
-
     // get return url from route parameters or default to '/'
     this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/';
   }
 
   login() {
     this.loading = true;
+    this.errorMessage = null;
     this.authenticationService.login(this.model.username, this.model.password)
+      .flatMap(data => {
+        return this.authenticationService.getMe();
+      })
       .subscribe(
         data => {
+          localStorage.setItem('user', JSON.stringify(data));
           this.router.navigate([this.returnUrl]);
         },
         error => {
-          this.alertService.error(error);
           this.loading = false;
-        });
+          this.errorMessage = error.json().message;
+        }
+      );
   }
 }

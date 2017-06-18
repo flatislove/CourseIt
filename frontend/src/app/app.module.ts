@@ -7,8 +7,8 @@ import { AppComponent } from './app.component';
 import { NewsDetailComponent } from './developer/news-detail/news-detail.component';
 import {RouterModule, Routes} from '@angular/router';
 import { HomeComponent } from './developer/home/home.component';
-import { LoginComponent } from './login/login.component';
-import {AuthGuard} from './_guards/auth.guard';
+import { LoginComponent } from './auth/login/login.component';
+import {AuthGuard} from './auth/_guards/auth.guard';
 import {AuthenticationService} from './_services/authentication.service';
 import {UserService} from './_services/user.service';
 import { ProjectDetailComponent } from './developer/project/project-detail/project-detail.component';
@@ -24,12 +24,14 @@ import { AdminProjectMessageComponent } from './admin/admin-project-message/admi
 import { AdminTagsComponent } from './admin/admin-tags/admin-tags.component';
 import { AdminRolesComponent } from './admin/admin-roles/admin-roles.component';
 import {AlertService} from './_services/alert.service';
-import {AlertComponent} from './_directives/alert.component';
-import {RegisterComponent} from './register/register.component';
+import {AlertComponent} from './auth/_directives/alert.component';
+import {RegisterComponent} from './auth/register/register.component';
 import { MessageComponent } from './developer/project/message/message.component';
 import {componentModuleUrl} from '@angular/compiler';
 import { MarkdownComponent } from './developer/project/markdown/markdown.component';
 import { FilesComponent } from './developer/project/files/files.component';
+import { UserComponent } from './auth/user/user.component';
+import {SecurityService} from './_services/security.service';
 
 const appRoutes : Routes = [
 
@@ -46,10 +48,10 @@ const appRoutes : Routes = [
   {path: 'projects/:id/message',component: MessageComponent},
   {path: 'projects/:id/markdown',component: MessageComponent},
 
-  {path:'login',component:LoginComponent},
+  {path:'login',component:LoginComponent,canActivate:[AuthGuard]},
   {path:'register',component:RegisterComponent},
 
-  {path:'',component:HomeComponent,canActivate:[AuthGuard]},
+  // {path:'',component:HomeComponent,canActivate:[AuthGuard]},
   {path: '**',redirectTo:''},
 
   //admin
@@ -65,10 +67,10 @@ const appRoutes : Routes = [
                   ProjectDetailComponent, AccountMainComponent, NewsComponent,
                   ProjectComponent, AdminUsersComponent, AdminProjectComponent,
                   AdminNewsComponent, AdminProjectMessageComponent, AdminTagsComponent,
-                  AdminRolesComponent,AlertComponent,LoginComponent,RegisterComponent, MessageComponent, MarkdownComponent, FilesComponent],
+                  AdminRolesComponent,AlertComponent,LoginComponent,RegisterComponent, MessageComponent, MarkdownComponent, FilesComponent, UserComponent],
   imports:        [BrowserModule, FormsModule, HttpModule, RouterModule.forRoot(appRoutes), JsonpModule],
   providers:      [AuthGuard,ProjectDetailService,AuthenticationService,UserService,
-                  BaseRequestOptions,NewsService,ProjectService,AlertService,UserService],
+                  BaseRequestOptions,NewsService,ProjectService,AlertService,UserService,SecurityService],
   bootstrap:      [AppComponent]
 })
 export class AppModule { }

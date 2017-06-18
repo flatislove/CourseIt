@@ -14,6 +14,7 @@ let projjjj = [
   new Project(13, 'Bombasto', 'Bombasto', 'Bombasto'),
   new Project(14, 'Celeritas', 'Celeritas', 'Celeritas')
 ];
+
 let projectMockPromise = Promise.resolve(projjjj);
 
 @Injectable()

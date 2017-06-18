@@ -13,7 +13,8 @@ export class MessageComponent implements OnInit {
   constructor(private projectService:ProjectService) { }
 
   ngOnInit() {
-    this.projectService.getMessages();
+
+    this.projectService.getMessages(2);
 
   }
 

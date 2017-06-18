@@ -1,9 +1,8 @@
 import {Component, HostBinding} from '@angular/core';
 import { Router } from '@angular/router';
-import {UserService} from '../_services/user.service';
-import {AlertService} from '../_services/alert.service';
-import {slideInDownAnimation} from '../animations';
-
+import {slideInDownAnimation} from '../../animations';
+import {UserService} from '../../_services/user.service';
+import {AlertService} from '../../_services/alert.service';
 
 @Component({
   moduleId: module.id,

@@ -1,5 +1,5 @@
 import {Component, HostBinding, OnInit} from '@angular/core';
-import {User} from '../../_models/user';
+import {User} from '../../auth/_models/user';
 import {UserService} from '../../_services/user.service';
 import {slideInDownAnimation} from '../../animations';
 
