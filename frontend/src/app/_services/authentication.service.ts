@@ -2,7 +2,7 @@
 import { Injectable } from '@angular/core';
 import { Http, Headers, Response } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
-import {AuthConfigConsts, AuthHttp} from 'angular2-jwt';
+import {AuthConfigConsts, AuthHttp, AUTH_PROVIDERS} from 'angular2-jwt';
 import 'rxjs/add/operator/map'
 import {Router} from '@angular/router';
 import {environment} from '../../environments/environment';

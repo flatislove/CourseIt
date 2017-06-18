@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 
 @Component({
-  selector: 'app-markdown',
+  selector: 'markdown,[Markdown]',
   templateUrl: './markdown.component.html',
   styleUrls: ['./markdown.component.css']
 })

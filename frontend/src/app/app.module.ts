@@ -2,7 +2,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import {ProjectDetailService} from './developer/project/project-detail/project-detail.service'
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import {BaseRequestOptions, HttpModule, JsonpModule} from '@angular/http';
+import {BaseRequestOptions, Http, HttpModule, JsonpModule, RequestOptions} from '@angular/http';
 import { AppComponent } from './app.component';
 import { NewsDetailComponent } from './developer/news-detail/news-detail.component';
 import {RouterModule, Routes} from '@angular/router';
@@ -32,10 +32,16 @@ import { MarkdownComponent } from './developer/project/markdown/markdown.compone
 import { FilesComponent } from './developer/project/files/files.component';
 import { UserComponent } from './auth/user/user.component';
 import {SecurityService} from './_services/security.service';
+import {AuthHttp, AuthConfig} from 'angular2-jwt/angular2-jwt';
+import {MarkdownModule} from 'angular2-markdown';
+
+
+
+export function authHttpServiceFactory(http:Http,options:RequestOptions){
+  return new AuthHttp(new AuthConfig(),http,options);
+}
 
 const appRoutes : Routes = [
-
-
 
   {path: 'news', component: NewsComponent},
   {path: 'news/:id', component: NewsDetailComponent},
@@ -47,7 +53,6 @@ const appRoutes : Routes = [
   {path: 'projects/:id/files',component: FilesComponent},
   {path: 'projects/:id/message',component: MessageComponent},
   {path: 'projects/:id/markdown',component: MessageComponent},
-
   {path:'login',component:LoginComponent,canActivate:[AuthGuard]},
   {path:'register',component:RegisterComponent},
 
@@ -68,9 +73,12 @@ const appRoutes : Routes = [
                   ProjectComponent, AdminUsersComponent, AdminProjectComponent,
                   AdminNewsComponent, AdminProjectMessageComponent, AdminTagsComponent,
                   AdminRolesComponent,AlertComponent,LoginComponent,RegisterComponent, MessageComponent, MarkdownComponent, FilesComponent, UserComponent],
-  imports:        [BrowserModule, FormsModule, HttpModule, RouterModule.forRoot(appRoutes), JsonpModule],
+  imports:        [BrowserModule, MarkdownModule.forRoot(),FormsModule, HttpModule, RouterModule.forRoot(appRoutes), JsonpModule],
   providers:      [AuthGuard,ProjectDetailService,AuthenticationService,UserService,
-                  BaseRequestOptions,NewsService,ProjectService,AlertService,UserService,SecurityService],
+                  BaseRequestOptions,NewsService,ProjectService,AlertService,UserService,SecurityService,
+                  {provide:AuthHttp,
+                  useFactory:authHttpServiceFactory,
+                  deps:[Http,RequestOptions]}],
   bootstrap:      [AppComponent]
 })
 export class AppModule { }

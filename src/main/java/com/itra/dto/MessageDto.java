@@ -11,13 +11,13 @@ import java.util.Date;
 @Setter
 @Data
 public class MessageDto implements Dto{
-    private long id;
     private Date date;
     private String text;
+    private long projectId;
     private long authorId;
 
     public MessageDto(Message message){
-        this.id=message.getId();
+        this.projectId=message.getProject().getId();
         this.date=message.getDate();
         this.text=message.getText();
         this.authorId=message.getAuthor().getId();

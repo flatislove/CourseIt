@@ -3,6 +3,7 @@ package com.itra.service.impl;
 import com.itra.dto.ProjectDto;
 import com.itra.entity.models.Project;
 import com.itra.entity.repository.ProjectRepository;
+import com.itra.entity.repository.UserRepository;
 import com.itra.service.ProjectService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -15,6 +16,8 @@ public class ProjectServiceImpl implements ProjectService {
 
     @Autowired
     private ProjectRepository projectRepository;
+    @Autowired
+    private UserRepository userRepository;
 
     @Override
     public List<ProjectDto> getAll() {
@@ -54,6 +57,17 @@ public class ProjectServiceImpl implements ProjectService {
     @Override
     public Project editProject(Project tag) {
         return projectRepository.saveAndFlush(tag);
+    }
+
+    @Override
+    public String getMarkdownArea(long project_id) {
+        return this.projectRepository.findMarkdownById(project_id);
+    }
+
+    @Override
+    public Project outDto(ProjectDto projectDto) {
+        return new Project(projectDto.getId(),projectDto.getName(),projectDto.getDescription(),projectDto.getText(),
+                projectDto.getMarkdown(),projectDto.getStatus(),userRepository.findOne(projectDto.getManager()));
     }
 
     public static ArrayList<Long> getIdAll(List<Project> projects) {

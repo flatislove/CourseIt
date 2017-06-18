@@ -26,7 +26,7 @@ public class Project {
     private String name;
     private String description;
     private String text;
-    @NotNull
+    private String markdown;
     private int status;
 
     @ManyToOne(fetch = FetchType.EAGER)
@@ -79,8 +79,19 @@ public class Project {
         this.manager=manager;
     }
 
-    public Project(String name, String description, String text, int status, User manager){
+    public Project(String name, String description, String text,String markdown, int status, User manager){
         this.name=name;
+        this.markdown=markdown;
+        this.description=description;
+        this.text=text;
+        this.status=status;
+        this.manager=manager;
+    }
+
+    public Project(long id, String name, String description, String text,String markdown, int status, User manager){
+        this.id=id;
+        this.name=name;
+        this.markdown=markdown;
         this.description=description;
         this.text=text;
         this.status=status;

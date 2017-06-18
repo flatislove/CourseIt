@@ -17,4 +17,8 @@ public interface ProjectService {
     void delete(long id);
 
     Project editProject(Project project);
+
+    String getMarkdownArea(long project_id);
+
+    Project outDto(ProjectDto projectDto);
 }
