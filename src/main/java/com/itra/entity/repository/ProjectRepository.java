@@ -12,4 +12,6 @@ import javax.transaction.Transactional;
 public interface ProjectRepository extends JpaRepository<Project,Long> {
     @Query("select p from Project p where p.name = :name")
     Project findByName(@Param("name") String name);
+
+    Project findById(@Param("id")long id);
 }

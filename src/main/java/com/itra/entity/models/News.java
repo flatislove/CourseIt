@@ -1,9 +1,7 @@
 package com.itra.entity.models;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
+import org.codehaus.jackson.annotate.JsonIgnore;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.util.ArrayList;
@@ -14,6 +12,7 @@ import java.util.List;
 @NoArgsConstructor
 @Getter
 @Setter
+@Data
 @Entity(name = "News")
 @Table(name = "news")
 public class News {
@@ -25,7 +24,8 @@ public class News {
     @NotNull
     private Date date;
     private String text;
-    @ManyToOne(fetch = FetchType.LAZY)
+
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "role_id")
     private Role role;
 
@@ -45,14 +45,4 @@ public class News {
     @ManyToMany(cascade = CascadeType.ALL)
     @JoinTable(name = "newstag",joinColumns = @JoinColumn(name = "news_id"),inverseJoinColumns = @JoinColumn(name = "tag_id"))
     private List<Tag> tags = new ArrayList<>();
-
-//    public void addTag(Tag tag){
-//        tags.add(tag);
-//        tag.getNews().add(this);
-//    }
-//
-//    public void removeTag(Tag tag){
-//        tags.remove(tag);
-//        tag.getNews().remove(this);
-//    }
 }

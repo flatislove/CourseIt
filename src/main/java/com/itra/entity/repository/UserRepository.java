@@ -4,9 +4,9 @@ import com.itra.entity.models.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
-import javax.transaction.Transactional;
+import org.springframework.stereotype.Repository;
 
-@Transactional
+@Repository
 public interface UserRepository extends JpaRepository<User, Long> {
 
     @Query("select b from User b where b.nickname = :nickname")

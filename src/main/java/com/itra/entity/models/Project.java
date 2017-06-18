@@ -1,9 +1,10 @@
 package com.itra.entity.models;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
+import org.codehaus.jackson.annotate.JsonBackReference;
+import org.codehaus.jackson.annotate.JsonIgnore;
+import org.codehaus.jackson.annotate.JsonManagedReference;
+
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.util.ArrayList;
@@ -13,6 +14,7 @@ import java.util.List;
 @NoArgsConstructor
 @Getter
 @Setter
+@Data
 @Entity(name = "Project")
 @Table(name = "projects")
 public class Project {
@@ -26,7 +28,8 @@ public class Project {
     private String text;
     @NotNull
     private int status;
-    @ManyToOne(fetch = FetchType.LAZY)
+
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "user_id")
     private User manager;
 

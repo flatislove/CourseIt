@@ -1,7 +1,9 @@
 package com.itra.controllers;
 
-import com.itra.entity.repository.UserRepository;
+import com.itra.dto.UserDto;
 import com.itra.entity.models.User;
+import com.itra.service.RoleService;
+import com.itra.service.UserService;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,7 +22,10 @@ import java.util.*;
 public class MainController {
 
     @Autowired
-    private UserRepository userRepository;
+    private UserService userService;
+
+    @Autowired
+    private RoleService roleService;
 
 
     /**
@@ -35,20 +40,19 @@ public class MainController {
         String token = null;
 
         Map<String, Object> tokenMap = new HashMap<String, Object>();
-        if (userRepository.findByNickname(user.getName()) != null) {
-            throw new RuntimeException("Username already exist");
+        if (userService.getByNickname(user.getName()) != null) {
+            throw new RuntimeException("This user already exist(nickname)");
         }
-        //System.out.println("jjjjjjjjjjjjjjjjjjjjjjjj");
         List<String> roles = new ArrayList<>();
         roles.add("DEVELOPER");
-        user.setRole("DEVELOPER");
+        user.setRole(roleService.getByIdRole(3l));
 
         token = Jwts.builder().claim("roles", user.getRole()).setIssuedAt(new Date())
                 .signWith(SignatureAlgorithm.HS256, "secretkey").compact();
         tokenMap.put("token", token);
         tokenMap.put("user", user);
 
-        return new ResponseEntity<User>(userRepository.save(user), HttpStatus.CREATED);
+        return new ResponseEntity<User>(userService.addUser(user), HttpStatus.CREATED);
     }
     /**
      * This method will return the logged user.
@@ -57,10 +61,10 @@ public class MainController {
      * @return Principal java security principal object
      */
     @RequestMapping("/user")
-    public User user(Principal principal) {
+    public UserDto user(Principal principal) {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         String loggedUsername = auth.getName();
-        return userRepository.findByNickname(loggedUsername);
+        return userService.getByNickname(loggedUsername);
     }
 
     /**
@@ -74,7 +78,7 @@ public class MainController {
     public ResponseEntity<Map<String, Object>> login(@RequestParam String username, @RequestParam String password,
                                                      HttpServletResponse response) throws IOException {
         String token = null;
-        User user = userRepository.findByNickname(username);
+        UserDto user = userService.getByNickname(username);
         Map<String, Object> tokenMap = new HashMap<String, Object>();
         if (user != null && user.getPassword().equals(password)) {
             token = Jwts.builder().setSubject(username).claim("roles", user.getRole()).setIssuedAt(new Date())
@@ -88,11 +92,3 @@ public class MainController {
         }
     }
 }
-
- /*   @RequestMapping("/")
-    @ResponseBody
-    public String index() {
-        return "return text for itrascreen";
-    }
-
-}*/

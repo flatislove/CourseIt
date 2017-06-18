@@ -1,0 +1,13 @@
+<h2>
+  News List
+</h2>
+
+<ul class="container">
+  <div *ngFor="let news of newses | async"
+       [class.selected]="isSelected(news)"
+       (click)="onSelect(news)">
+    <div class="jumbotron"> <span class="badge">{{ news.id }}</span> {{ news.description }}</div>
+
+  </div>
+</ul>
+<button routerLink="/sidekicks">Go to side</button>
