@@ -20,18 +20,18 @@ public class DbCApplication {
         SpringApplication.run(DbCApplication.class, args);
     }
 
-    @Bean
-    CommandLineRunner bootstrap(final UserRepository userRepository, final PasswordEncoder passwordEncoder) {
-        return (args) -> {
-            userRepository.save(
-                    new User("Peter", passwordEncoder.encode("password"), UserRole.ADMIN)
-            );
-
-            userRepository.save(
-                    new User("John", passwordEncoder.encode("password"), UserRole.DEVELOPER)
-            );
-
-            userRepository.findAll().stream().map(User::toString).forEach(System.out::println);
-        };
-    }
+//    @Bean
+//    CommandLineRunner bootstrap(final UserRepository userRepository, final PasswordEncoder passwordEncoder) {
+//        return (args) -> {
+//            userRepository.save(
+//                    new User("Peter", passwordEncoder.encode("password"), UserRole.ADMIN)
+//            );
+//
+//            userRepository.save(
+//                    new User("John", passwordEncoder.encode("password"), UserRole.DEVELOPER)
+//            );
+//
+//            userRepository.findAll().stream().map(User::toString).forEach(System.out::println);
+//        };
+//    }
 }

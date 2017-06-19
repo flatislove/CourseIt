@@ -47,7 +47,7 @@ public class AdminController {
 
     @GetMapping(value = "/admin/message")
     public List<MessageDto> getListMessageForAdmin() {
-        return messageService.getAll();
+        return messageService.listMessageToDto(messageService.getAll());
     }
 
     @GetMapping(value = "/admin/roles")

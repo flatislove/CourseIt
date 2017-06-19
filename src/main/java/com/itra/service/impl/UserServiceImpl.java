@@ -2,15 +2,20 @@ package com.itra.service.impl;
 
 import com.itra.dto.UserDto;
 import com.itra.entity.models.User;
+import com.itra.entity.repository.RoleRepository;
 import com.itra.entity.repository.UserRepository;
 import com.itra.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
 import java.util.ArrayList;
 import java.util.List;
 
 @Service
-public class UserServiceImpl implements UserService{
+public class UserServiceImpl implements UserService {
+
+    @Autowired
+    private RoleRepository roleRepository;
 
     @Autowired
     private UserRepository userRepository;
@@ -22,8 +27,8 @@ public class UserServiceImpl implements UserService{
 
 
     @Override
-    public User addUser(User user) {
-        User savedUser = userRepository.saveAndFlush(user);
+    public User addUser(UserDto user) {
+        User savedUser = userRepository.saveAndFlush(outDto(user));
         return savedUser;
     }
 
@@ -47,16 +52,22 @@ public class UserServiceImpl implements UserService{
         return this.toDto(userRepository.findAll());
     }
 
-    public List<UserDto> toDto(List<User> list){
+    @Override
+    public User outDto(UserDto userDto) {
+        return new User(userDto.getName(), userDto.getNickname(), userDto.getEmail(), userDto.getPassword(), roleRepository.findByName(userDto.getRole()).getName());
+    }
+
+    public List<UserDto> toDto(List<User> list) {
         List<UserDto> listDto = new ArrayList<>();
-        for (User user: list){
+        for (User user : list) {
             listDto.add(new UserDto(user));
         }
         return listDto;
     }
-    public static ArrayList<Long> getIdAll(List<User> users){
+
+    public static ArrayList<Long> getIdAll(List<User> users) {
         ArrayList<Long> listId = new ArrayList<>();
-        for (User user: users){
+        for (User user : users) {
             listId.add(user.getId());
         }
         return listId;

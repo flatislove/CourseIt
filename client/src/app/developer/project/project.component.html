@@ -1,0 +1,10 @@
+<h2>
+  Projects List
+</h2>
+<ul class="container">
+  <div *ngFor="let project of projects | async"
+      [class.selected]="isSelected(project)"
+      (click)="onSelect(project)">
+    <div class="container"> <span class="badge">{{ project.id }}</span> {{ project.name }}</div>
+  </div>
+</ul>

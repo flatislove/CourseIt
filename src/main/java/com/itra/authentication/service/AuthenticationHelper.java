@@ -20,7 +20,7 @@ import java.util.Objects;
 public class AuthenticationHelper {
     public static final String AUTHENTICATION_HEADER = "Authorization";
     public static final String AUTHENTICATION_PARAM = "auth";
-    private final String SECRET = "FlatisloveValynets";
+    private final String SECRET = "secret";
 
     private Long tokenExpirationTime = 3600L;
 

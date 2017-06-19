@@ -9,7 +9,6 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @CrossOrigin
-@RequestMapping(value = "dev")
 public class ProjectController {
 
     private ProjectService projectService;
@@ -20,7 +19,7 @@ public class ProjectController {
         this.messageService = messageService;
     }
 
-    @GetMapping(value = "projects")
+    @GetMapping("/projects")
     public ResponseEntity<?> getAllProjects() {
         return ResponseEntity.ok(this.projectService.getAll());
     }
@@ -28,7 +27,7 @@ public class ProjectController {
 //        return projectService.getAll();
 //    }
 
-    @GetMapping(value = "projects/{id}")
+    @GetMapping("/projects/{id}")
     public ResponseEntity<?> projectById(@PathVariable long id) {
         return ResponseEntity.ok(this.projectService.getById(id));
 //        ProjectDto projectDto = projectService.getById(id);
@@ -37,23 +36,21 @@ public class ProjectController {
 //        } else return new ResponseEntity<ProjectDto>(projectDto, HttpStatus.OK);
     }
 
-    @GetMapping(value = "projects/{id}/message")
+    @GetMapping("/projects/{id}/message")
     public ResponseEntity<?> getMessagesOfProject(@PathVariable long id_project) {
         return ResponseEntity.ok(this.messageService.getAllMessagesOfProject(id_project));
     }
-
-    @PostMapping(value = "projects/{id}/message")
+    @PostMapping("/projects/{id}/message")
     public ResponseEntity<?> addMessageForDiscussion(@RequestBody MessageDto message) {
         this.messageService.addMessage(this.messageService.outDto(message));
         return ResponseEntity.ok("ok");
     }
 
-    @GetMapping(value = "projects/{id}/markdown")
+    @GetMapping("/projects/{id}/markdown")
     public ResponseEntity<?> getAreaMarkdown(@PathVariable long id_project) {
         return ResponseEntity.ok(this.projectService.getMarkdownArea(id_project));
     }
-
-    @PostMapping(value = "projects/{id}/markdown")
+    @PostMapping("/projects/{id}/markdown")
     public ResponseEntity<?> saveMarkdownArea(@RequestBody ProjectDto projectDto) {
         this.projectService.editProject(this.projectService.outDto(projectDto));
         return ResponseEntity.ok("ok");

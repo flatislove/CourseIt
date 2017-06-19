@@ -60,6 +60,14 @@ public class User implements UserDetails{
         this.password=password;
         this.role=new Role();
     }
+    public User(String name, String nickname, String email, String password,String role) {
+        this.email = email;
+        this.name = name;
+        this.nickname=nickname;
+        this.password=password;
+        this.role=new Role();
+    }
+
 
     public User(String nickname, String password, UserRole role) {
         this.nickname=nickname;

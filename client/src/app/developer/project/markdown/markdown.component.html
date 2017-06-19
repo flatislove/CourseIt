@@ -1,0 +1,14 @@
+<div class="container">
+  <div class="row">
+    <div class="col-md-6">
+      <h5>Markdown</h5>
+      <textarea name="markdown" id="markdown-area" rows="30" placeholder="Enter here "(keyup)="updateOutput($event.target.value)">
+      </textarea>
+    </div>
+    <div class="col-md-6">
+      <h5>Output</h5>
+      <div [innerHtml]="convertedText">{{convertedText}}</div>
+    </div>
+
+  </div>
+</div>
