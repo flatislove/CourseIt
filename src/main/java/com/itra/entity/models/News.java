@@ -35,6 +35,13 @@ public class News {
         this.role=new Role("DEVELOPER");
     }
 
+    public News(String description,String text,Role role){
+        this.description=description;
+        this.text=text;
+        this.date=new Date();
+        this.role=role;
+    }
+
     public News(String description,String text){
         this.description=description;
         this.date=new Date();

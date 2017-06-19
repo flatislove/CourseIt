@@ -40,6 +40,7 @@ public class ProjectController {
     public ResponseEntity<?> getMessagesOfProject(@PathVariable long id_project) {
         return ResponseEntity.ok(this.messageService.getAllMessagesOfProject(id_project));
     }
+
     @PostMapping("/projects/{id}/message")
     public ResponseEntity<?> addMessageForDiscussion(@RequestBody MessageDto message) {
         this.messageService.addMessage(this.messageService.outDto(message));
@@ -50,8 +51,20 @@ public class ProjectController {
     public ResponseEntity<?> getAreaMarkdown(@PathVariable long id_project) {
         return ResponseEntity.ok(this.projectService.getMarkdownArea(id_project));
     }
+
     @PostMapping("/projects/{id}/markdown")
     public ResponseEntity<?> saveMarkdownArea(@RequestBody ProjectDto projectDto) {
+        this.projectService.editProject(this.projectService.outDto(projectDto));
+        return ResponseEntity.ok("ok");
+    }
+
+    @GetMapping("/projects/{id}/files")
+    public ResponseEntity<?> getFilesArea(@PathVariable long id_project) {
+        return ResponseEntity.ok(this.projectService.getMarkdownArea(id_project));
+    }
+
+    @PostMapping("/projects/{id}/files")
+    public ResponseEntity<?> saveFilesArea(@RequestBody ProjectDto projectDto) {
         this.projectService.editProject(this.projectService.outDto(projectDto));
         return ResponseEntity.ok("ok");
     }

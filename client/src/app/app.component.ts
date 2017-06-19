@@ -16,12 +16,4 @@ export class AppComponent {
 
   constructor(private router: Router) {
   }
-
-  public toHome() {
-    this.router.navigate(['/news'], {skipLocationChange: false});
-  }
-
-  public toLogin() {
-    this.router.navigate(['/login'], {skipLocationChange: false})
-  }
 }

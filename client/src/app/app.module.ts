@@ -53,7 +53,8 @@ const appRoutes : Routes = [
   {path: 'projects/:id/message',component: MessageComponent},
   {path: 'projects/:id/markdown',component: MarkdownComponent},
   {path:'auth/login',component:LoginComponent,canActivate:[AuthGuard]},
-  {path:'register',component:RegisterComponent},
+  {path:'api/users',component:RegisterComponent},
+
 
   // {path:'',component:HomeComponent,canActivate:[AuthGuard]},
   {path: '**',redirectTo:''},
@@ -71,8 +72,10 @@ const appRoutes : Routes = [
                   ProjectDetailComponent, AccountMainComponent, NewsComponent,
                   ProjectComponent, AdminUsersComponent, AdminProjectComponent,
                   AdminNewsComponent, AdminProjectMessageComponent, AdminTagsComponent,
-                  AdminRolesComponent,AlertComponent,LoginComponent,RegisterComponent, MessageComponent, MarkdownComponent, FilesComponent, UserComponent],
-  imports:        [BrowserModule, MarkdownModule.forRoot(),FormsModule, HttpModule, RouterModule.forRoot(appRoutes), JsonpModule],
+                  AdminRolesComponent,AlertComponent,LoginComponent,RegisterComponent,
+                  MessageComponent, MarkdownComponent, FilesComponent, UserComponent],
+  imports:        [BrowserModule, MarkdownModule.forRoot(),FormsModule, HttpModule,
+                  RouterModule.forRoot(appRoutes), JsonpModule],
   providers:      [AuthGuard,AuthenticationService,UserService,
                   BaseRequestOptions,NewsService,ProjectService,AlertService,UserService,SecurityService,
                   {provide:AuthHttp,

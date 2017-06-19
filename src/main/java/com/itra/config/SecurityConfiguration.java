@@ -28,7 +28,8 @@ import org.springframework.security.web.authentication.www.BasicAuthenticationFi
 @RequiredArgsConstructor
 public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
-    private static final String[] allowedUrlsForPost = new String[]{ "/auth/login","/api/users" };
+    private static final String[] allowedUrlsForPost = new String[]{ "/auth/login","/api/users","/register",
+    "/projects/:id/message","/projects/:id/markdown",};
 
     private final JwtAuthenticationProvider jwtAuthenticationProvider;
 
@@ -74,7 +75,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     public void configure(final WebSecurity web) throws Exception {
         web.ignoring()
                 .antMatchers(HttpMethod.POST, allowedUrlsForPost)
-                .antMatchers(HttpMethod.GET,"/news","/news/{id}","/projects","/projects/{id}")
+                .antMatchers(HttpMethod.GET,"/projects/:id/markdown","/news","/news/{id}","/projects","/projects/{id}")
                 .antMatchers(HttpMethod.OPTIONS, "/**");
 
     }

@@ -1,11 +1,12 @@
 package com.itra.controllers;
 
 import com.itra.dto.*;
+import com.itra.entity.models.News;
+import com.itra.entity.models.Project;
 import com.itra.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -28,6 +29,12 @@ public class AdminController {
     @GetMapping(value = "/admin/news")
     public List<NewsDto> getListNewsForAdmin() {
         return newsService.getAll();
+    }
+
+    @PostMapping(value = "/admin/news")
+    public News addNews(@RequestBody NewsDto newsDto){
+        News savedNews = newsService.addNews(newsService.outDto(newsDto));
+        return savedNews;
     }
 
     @GetMapping(value = "/admin/projects")

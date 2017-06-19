@@ -11,4 +11,5 @@ public interface NewsService {
     News addNews(News tag);
     void delete(long id);
     News editNews(News tag);
+    News outDto(NewsDto newsDto);
 }

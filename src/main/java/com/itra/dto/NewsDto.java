@@ -15,13 +15,13 @@ public class NewsDto implements Dto{
     private String description;
     private Date date;
     private String text;
-    private long role;
+    private String role;
 
     public NewsDto(News news){
         this.id=news.getId();
         this.description=news.getDescription();
         this.date=news.getDate();
         this.text=news.getText();
-        this.role=news.getRole().getId();
+        this.role=news.getRole().getName();
     }
 }
