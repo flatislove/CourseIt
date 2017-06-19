@@ -1,6 +1,6 @@
 ﻿import {Component, OnInit} from '@angular/core';
 import {User} from '../account-main/user';
-import {UserService} from '../../_services/user.service';
+import {UserService} from '../../auth/_services/user.service';
 import 'rxjs/add/operator/toPromise';
 
 @Component({

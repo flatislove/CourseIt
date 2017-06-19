@@ -13,7 +13,7 @@ export class MarkdownComponent {
 
   constructor(private md: MarkdownService) {
   }
-  
+
   updateOutput(mdText: string) {
     this.convertedText = this.md.convert(mdText)
 

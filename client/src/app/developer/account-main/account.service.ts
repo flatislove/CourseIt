@@ -1,6 +1,6 @@
 import {Injectable} from '@angular/core';
 import {Headers, Http} from '@angular/http';
-import {AuthenticationService} from '../../_services/authentication.service';
+import {AuthenticationService} from '../../auth/_services/authentication.service';
 import {User} from './user';
 import 'rxjs/add/operator/toPromise';
 

@@ -1,5 +1,5 @@
 <div>
-  <label>Message:</label> <input #MessageText />
+  <label>Message:</label> <input #MessageText/>
   <button (click)="add(MessageText.value); MessageText.value=''">
     Send
   </button>
@@ -7,5 +7,5 @@
 </div>
 <div *ngFor="let message of messages | async">
 
-  <div class="jumbotron"> <span class="badge">{{ message.text }}</span> {{ message.user_id }}</div>
+  <div class="jumbotron"><span class="badge">{{ message.text }}</span> {{ message.user_id }}</div>
 </div>

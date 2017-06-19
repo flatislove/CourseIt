@@ -8,8 +8,8 @@ import {RouterModule, Routes} from '@angular/router';
 import {HomeComponent} from './developer/home/home.component';
 import {LoginComponent} from './auth/login/login.component';
 import {AuthGuard} from './auth/_guards/auth.guard';
-import {AuthenticationService} from './_services/authentication.service';
-import {UserService} from './_services/user.service';
+import {AuthenticationService} from './auth/_services/authentication.service';
+import {UserService} from './auth/_services/user.service';
 import {ProjectDetailComponent} from './developer/project/project-detail/project-detail.component';
 import {AccountMainComponent} from './developer/account-main/account-main.component';
 import {NewsComponent} from './developer/news/news.component';
@@ -22,14 +22,14 @@ import {AdminNewsComponent} from './admin/admin-news/admin-news.component';
 import {AdminProjectMessageComponent} from './admin/admin-project-message/admin-project-message.component';
 import {AdminTagsComponent} from './admin/admin-tags/admin-tags.component';
 import {AdminRolesComponent} from './admin/admin-roles/admin-roles.component';
-import {AlertService} from './_services/alert.service';
+import {AlertService} from './auth/_services/alert.service';
 import {AlertComponent} from './auth/_directives/alert.component';
 import {RegisterComponent} from './auth/register/register.component';
 import {MessageComponent} from './developer/project/message/message.component';
 import {MarkdownComponent} from './developer/project/markdown/markdown.component';
 import {FilesComponent} from './developer/project/files/files.component';
 import {UserComponent} from './auth/user/user.component';
-import {SecurityService} from './_services/security.service';
+import {SecurityService} from './auth/_services/security.service';
 import {AuthConfig, AuthHttp} from 'angular2-jwt';
 import {MarkdownModule} from 'angular2-markdown';
 
@@ -53,11 +53,9 @@ const appRoutes: Routes = [
   {path: 'auth/login', component: LoginComponent, canActivate: [AuthGuard]},
   {path: 'api/users', component: RegisterComponent},
 
-
-  // {path:'',component:HomeComponent,canActivate:[AuthGuard]},
+  {path: '', component: HomeComponent, canActivate: [AuthGuard]},
   {path: '**', redirectTo: ''},
 
-  //admin
   {path: 'admin/projects', component: AdminProjectComponent},
   {path: 'admin/news', component: AdminNewsComponent},
   {path: 'admin/project_messages', component: AdminProjectMessageComponent},

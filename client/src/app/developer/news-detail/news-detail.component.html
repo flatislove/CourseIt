@@ -2,7 +2,8 @@
 <div *ngIf="news">
   <h3>"{{ news.name }}"</h3>
   <div>
-    <label>Id: </label>{{ news.id }}</div>
+    <label>Id: </label>{{ news.id }}
+  </div>
   <div>
     <label>Name: </label>
     <input [(ngModel)]="news.subscription" placeholder="subscription"/>

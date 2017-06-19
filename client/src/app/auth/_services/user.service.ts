@@ -1,8 +1,7 @@
 ﻿import {Injectable} from '@angular/core';
 import {Headers, Http, RequestOptions, Response} from '@angular/http';
-import {User} from '../developer/account-main/user';
+import {User} from '../../developer/account-main/user';
 import 'rxjs/add/operator/toPromise';
-
 
 @Injectable()
 export class UserService {

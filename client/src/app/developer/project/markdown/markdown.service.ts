@@ -1,19 +1,20 @@
-import { Injectable } from '@angular/core';
-import * as marked from 'marked'
+import {Injectable} from '@angular/core';
+import * as marked from 'marked';
 @Injectable()
 export class MarkdownService {
 
-  private md:MarkedStatic;
+  private md: MarkedStatic;
 
   constructor() {
-    this.md=marked;
+    this.md = marked;
 
     this.md.setOptions({
-      gfm:true,
-      breaks:true
+      gfm: true,
+      breaks: true
     });
   }
-  convert(markdown:string){
+
+  convert(markdown: string) {
     return this.md.parse(markdown);
   }
 
