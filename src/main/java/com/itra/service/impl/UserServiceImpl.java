@@ -1,5 +1,6 @@
 package com.itra.service.impl;
 
+import com.itra.dto.RegisterUserDto;
 import com.itra.dto.UserDto;
 import com.itra.entity.models.User;
 import com.itra.entity.repository.RoleRepository;
@@ -33,6 +34,13 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public User addRegistrationUser(RegisterUserDto user) {
+        User savedUser = userRepository.saveAndFlush(
+                new User(user.getName(),user.getNickname(),user.getEmail(),user.getPassword()));
+        return savedUser;
+    }
+
+    @Override
     public void delete(long id) {
         userRepository.delete(id);
     }
@@ -57,6 +65,13 @@ public class UserServiceImpl implements UserService {
         return new User(userDto.getName(), userDto.getNickname(), userDto.getEmail(), userDto.getPassword(), roleRepository.findByName(userDto.getRole()).getName());
     }
 
+    @Override
+    public User registerUserDtoToUser(RegisterUserDto registerUserDto) {
+        return new User(registerUserDto.getName(),registerUserDto.getNickname(),
+                registerUserDto.getEmail(),registerUserDto.getPassword());
+    }
+
+    @Override
     public List<UserDto> toDto(List<User> list) {
         List<UserDto> listDto = new ArrayList<>();
         for (User user : list) {
@@ -65,7 +80,8 @@ public class UserServiceImpl implements UserService {
         return listDto;
     }
 
-    public static ArrayList<Long> getIdAll(List<User> users) {
+    @Override
+    public ArrayList<Long> getIdAll(List<User> users) {
         ArrayList<Long> listId = new ArrayList<>();
         for (User user : users) {
             listId.add(user.getId());

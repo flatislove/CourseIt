@@ -20,7 +20,7 @@ import java.util.Optional;
 
 public class JwtAuthenticationFilter extends AbstractAuthenticationProcessingFilter {
 
-    public JwtAuthenticationFilter(final AuthenticationManager authenticationManager){
+    public JwtAuthenticationFilter(final AuthenticationManager authenticationManager) {
         super(httpServletRequest -> true);
         setAuthenticationManager(authenticationManager);
         setAuthenticationFailureHandler(new RestAuthenticationFailureHandler());
@@ -29,18 +29,18 @@ public class JwtAuthenticationFilter extends AbstractAuthenticationProcessingFil
     @Override
     public Authentication attemptAuthentication(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse)
             throws AuthenticationException, IOException, ServletException {
-        try{
+        try {
             String token = Optional.ofNullable(httpServletRequest.getHeader(AuthenticationHelper.AUTHENTICATION_HEADER))
-                    .map(header->header.substring(7)).orElse(null);
+                    .map(header -> header.substring(7)).orElse(null);
 
-            if (Objects.isNull(token)){
+            if (Objects.isNull(token)) {
                 throw new BadCredentialsException("Token not found in request's header");
             }
             JwtAuthenticationToken authenticationToken = new JwtAuthenticationToken(token);
 
             return this.getAuthenticationManager().authenticate(authenticationToken);
-        } catch (AuthenticationException exception){
-            unsuccessfulAuthentication(httpServletRequest,httpServletResponse,exception);
+        } catch (AuthenticationException exception) {
+            unsuccessfulAuthentication(httpServletRequest, httpServletResponse, exception);
         }
         return null;
     }
@@ -49,12 +49,12 @@ public class JwtAuthenticationFilter extends AbstractAuthenticationProcessingFil
     protected void successfulAuthentication(final HttpServletRequest httpServletRequest,
                                             final HttpServletResponse httpServletResponse,
                                             final FilterChain filterChain,
-                                            final Authentication authentication) throws IOException,ServletException{
+                                            final Authentication authentication) throws IOException, ServletException {
         SecurityContextHolder.getContext().setAuthentication(authentication);
 
-        if (this.eventPublisher!=null){
-            this.eventPublisher.publishEvent(new InteractiveAuthenticationSuccessEvent(authentication,this.getClass()));
+        if (this.eventPublisher != null) {
+            this.eventPublisher.publishEvent(new InteractiveAuthenticationSuccessEvent(authentication, this.getClass()));
         }
-        filterChain.doFilter(httpServletRequest,httpServletResponse);
+        filterChain.doFilter(httpServletRequest, httpServletResponse);
     }
 }

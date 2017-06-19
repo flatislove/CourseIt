@@ -9,7 +9,7 @@ import org.springframework.data.repository.query.Param;
 import javax.transaction.Transactional;
 
 @Transactional
-public interface NewsRepository extends JpaRepository<News,Long> {
+public interface NewsRepository extends JpaRepository<News, Long> {
     @Query("select n from News n where n.description = :description")
     News findByName(@Param("description") String description);
 }

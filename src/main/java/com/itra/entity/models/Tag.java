@@ -1,6 +1,7 @@
 package com.itra.entity.models;
 
 import lombok.*;
+
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.util.ArrayList;
@@ -26,7 +27,7 @@ public class Tag {
     @ManyToMany(mappedBy = "tags")
     private List<Project> projects = new ArrayList<>();
 
-    public Tag(String name){
-        this.name=name;
+    public Tag(String name) {
+        this.name = name;
     }
 }

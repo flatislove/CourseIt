@@ -6,7 +6,7 @@ import org.springframework.stereotype.Component;
 
 @Component
 public class UserListCreateDto {
-    public UserListDto createDto(final User user){
+    public UserListDto createDto(final User user) {
         UserListDto dto = new UserListDto();
         dto.setId(user.getId());
         dto.setNickname(user.getNickname());

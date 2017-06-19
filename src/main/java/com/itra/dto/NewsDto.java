@@ -10,18 +10,18 @@ import java.util.Date;
 @Getter
 @Setter
 @Data
-public class NewsDto implements Dto{
+public class NewsDto implements Dto {
     private long id;
     private String description;
     private Date date;
     private String text;
     private String role;
 
-    public NewsDto(News news){
-        this.id=news.getId();
-        this.description=news.getDescription();
-        this.date=news.getDate();
-        this.text=news.getText();
-        this.role=news.getRole().getName();
+    public NewsDto(News news) {
+        this.id = news.getId();
+        this.description = news.getDescription();
+        this.date = news.getDate();
+        this.text = news.getText();
+        this.role = news.getRole().getName();
     }
 }

@@ -1,8 +1,6 @@
 package com.itra.entity.models;
 
 import lombok.*;
-import org.codehaus.jackson.annotate.JsonBackReference;
-import org.codehaus.jackson.annotate.JsonIgnore;
 
 import javax.persistence.*;
 import java.util.Date;
@@ -30,17 +28,17 @@ public class Message {
     @JoinColumn(name = "project_id")
     private Project project;
 
-    public Message(Date date, String text, Project project,User author){
-        this.date=date;
-        this.text=text;
-        this.project=project;
-        this.author=author;
+    public Message(Date date, String text, Project project, User author) {
+        this.date = date;
+        this.text = text;
+        this.project = project;
+        this.author = author;
     }
 
-    public Message(String text,Project project,User author){
-        this.date=new Date();
-        this.text=text;
-        this.project=project;
-        this.author=author;
+    public Message(String text, Project project, User author) {
+        this.date = new Date();
+        this.text = text;
+        this.project = project;
+        this.author = author;
     }
 }

@@ -14,7 +14,7 @@ import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
-public class JwtDetailsServiceImpl implements UserDetailsService{
+public class JwtDetailsServiceImpl implements UserDetailsService {
 
     private final UserRepository userRepository;
 
@@ -23,6 +23,6 @@ public class JwtDetailsServiceImpl implements UserDetailsService{
         User byUsername = this.userRepository.findByNickname(username);
 
         return Optional.ofNullable(byUsername).map(JwtUserDetails::new)
-                .orElseThrow(()->new JsonException("User not found"));
+                .orElseThrow(() -> new JsonException("User not found"));
     }
 }

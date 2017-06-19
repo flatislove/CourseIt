@@ -1,7 +1,7 @@
 package com.itra.entity.models;
 
 import lombok.*;
-import org.codehaus.jackson.annotate.JsonIgnore;
+
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.util.ArrayList;
@@ -29,27 +29,27 @@ public class News {
     @JoinColumn(name = "role_id")
     private Role role;
 
-    public News(String description){
-        this.description=description;
-        this.date=new Date();
-        this.role=new Role("DEVELOPER");
+    public News(String description) {
+        this.description = description;
+        this.date = new Date();
+        this.role = new Role("DEVELOPER");
     }
 
-    public News(String description,String text,Role role){
-        this.description=description;
-        this.text=text;
-        this.date=new Date();
-        this.role=role;
+    public News(String description, String text, Role role) {
+        this.description = description;
+        this.text = text;
+        this.date = new Date();
+        this.role = role;
     }
 
-    public News(String description,String text){
-        this.description=description;
-        this.date=new Date();
-        this.text=text;
-        this.role=new Role("DEVELOPER");
+    public News(String description, String text) {
+        this.description = description;
+        this.date = new Date();
+        this.text = text;
+        this.role = new Role("DEVELOPER");
     }
 
     @ManyToMany(cascade = CascadeType.ALL)
-    @JoinTable(name = "newstag",joinColumns = @JoinColumn(name = "news_id"),inverseJoinColumns = @JoinColumn(name = "tag_id"))
+    @JoinTable(name = "newstag", joinColumns = @JoinColumn(name = "news_id"), inverseJoinColumns = @JoinColumn(name = "tag_id"))
     private List<Tag> tags = new ArrayList<>();
 }

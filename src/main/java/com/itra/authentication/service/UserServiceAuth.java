@@ -18,10 +18,10 @@ public class UserServiceAuth {
     private final UserListCreateDto userListCreateDto;
 
     @Transactional
-    public List<UserListDto> findAll(){
+    public List<UserListDto> findAll() {
         List<User> users = userRepository.findAll();
         List<UserListDto> userListDtos = new ArrayList<>();
-        for (User user:users){
+        for (User user : users) {
             UserListDto dto = this.userListCreateDto.createDto(user);
             userListDtos.add(dto);
         }

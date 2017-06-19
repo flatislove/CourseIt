@@ -1,12 +1,14 @@
-import { Injectable } from '@angular/core';
+import {Injectable} from '@angular/core';
+import 'rxjs/add/operator/toPromise';
 
 @Injectable()
 export class SecurityService {
 
-  constructor() { }
+  constructor() {
+  }
 
-  isLoggedIn(){
-    return !!localStorage.getItem('token')&&!!localStorage.getItem('user');
+  isLoggedIn() {
+    return !!localStorage.getItem('token') && !!localStorage.getItem('user');
   }
 
 }

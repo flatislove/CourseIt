@@ -1,5 +1,6 @@
 package com.itra.controllers;
 
+import com.itra.dto.RegisterUserDto;
 import com.itra.dto.UserDto;
 import com.itra.entity.models.User;
 import com.itra.service.UserService;
@@ -26,8 +27,8 @@ public class MainController {
     @Autowired
     private UserService userService;
 
-    @PostMapping("/api/users")
-    public ResponseEntity<User> createUser(@RequestBody UserDto user) {
+    @PostMapping(value = "/api/users")
+    public User createUser(@RequestBody RegisterUserDto user) {
         String token = null;
         Map<String, Object> tokenMap = new HashMap<String, Object>();
         if (userService.getByNickname(user.getNickname()) != null) {
@@ -38,7 +39,8 @@ public class MainController {
                 .signWith(SignatureAlgorithm.HS256, "secretkey").compact();
         tokenMap.put("token", token);
         tokenMap.put("user", user);
-        return new ResponseEntity<>(userService.addUser(user), HttpStatus.CREATED);
+        return userService.addRegistrationUser(user);
+
     }
 
     @RequestMapping("/user")

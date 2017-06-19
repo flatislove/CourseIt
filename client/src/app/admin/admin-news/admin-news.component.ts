@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
+import 'rxjs/add/operator/toPromise';
 
 @Component({
   selector: 'app-admin-news',
@@ -7,7 +8,8 @@ import { Component, OnInit } from '@angular/core';
 })
 export class AdminNewsComponent implements OnInit {
 
-  constructor() { }
+  constructor() {
+  }
 
   ngOnInit() {
   }

@@ -13,7 +13,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Service
-public class MessageServiceImpl implements MessageService{
+public class MessageServiceImpl implements MessageService {
 
     @Autowired
     MessageRepository messageRepository;
@@ -49,14 +49,14 @@ public class MessageServiceImpl implements MessageService{
     }
 
     public Message outDto(MessageDto messageDto) {
-        return new Message(messageDto.getDate(),messageDto.getText(),
+        return new Message(messageDto.getDate(), messageDto.getText(),
                 this.projectRepository.findById(messageDto.getProjectId()),
                 this.userRepository.findOne(messageDto.getAuthorId()));
     }
 
-    public List<MessageDto> listMessageToDto(List<Message> list){
+    public List<MessageDto> listMessageToDto(List<Message> list) {
         List<MessageDto> listDto = new ArrayList<>();
-        for (Message message: list){
+        for (Message message : list) {
             listDto.add(new MessageDto(message));
         }
         return listDto;

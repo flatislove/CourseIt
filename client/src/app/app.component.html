@@ -8,12 +8,13 @@
         </div>
         <button type="submit" class="btn btn-default">Submit</button>
       </form>
+
       <form class="navbar-form navbar-left">
-          <a routerLink="/account" routerLinkActive="active" class="navbar-brand"> Account</a>
-          <a routerLink="/news" routerLinkActive="active" class="navbar-brand"> Home</a>
-          <a routerLink="/news" routerLinkActive="active" class="navbar-brand"> News</a>
-          <a routerLink="/projects" routerLinkActive="active" class="navbar-brand">Projects</a>
-        <a routerLink="/auth/login" routerLinkActive="active" class="navbar-brand">Test</a>
+          <a (click)="appToAccount()"  class="navbar-brand"> Account</a>
+          <a href="api/users"  class="navbar-brand"> Home</a>
+          <a href="/news"  class="navbar-brand"> News</a>
+          <a href="/projects"  class="navbar-brand">Projects</a>
+        <a href="/auth/login"  class="navbar-brand">Test</a>
       </form>
     </nav>
   </div>

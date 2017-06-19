@@ -6,7 +6,7 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class UserListDto implements Dto{
+public class UserListDto implements Dto {
     private long id;
     private String nickname;
     private String role;

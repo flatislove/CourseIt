@@ -16,6 +16,7 @@ export class RegisterComponent {
         private userService: UserService,
         private alertService: AlertService) { }
 
+
     register() {
         this.loading = true;
         this.userService.create(this.model)
@@ -29,4 +30,5 @@ export class RegisterComponent {
                     this.loading = false;
                 });
     }
+
 }

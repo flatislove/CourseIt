@@ -15,7 +15,7 @@ public class ENGLocalizationImpl implements Localizationable {
                 "{ \"key\":\"message\",\"value\":\"Message\"}, " +
                 "{ \"key\":\"news\",\"value\":\"News\"}, " +
                 "{ \"key\":\"user\",\"value\":\"User\"}, " +
-                "{ \"key\":\"admin\",\"value\":\"Administarator\"}, " +
+                "{ \"key\":\"admin\",\"value\":\"Admin\"}, " +
                 "{ \"key\":\"tag\",\"value\":\"Tag\"}, " +
                 "{ \"key\":\"add\",\"value\":\"Add\"} " +
                 "]";

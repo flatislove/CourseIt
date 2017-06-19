@@ -1,19 +1,18 @@
-import {Component, HostBinding, OnInit} from '@angular/core';
-import {slideInDownAnimation} from '../../animations';
-import {News, NewsService} from '../news/news.service';
-import {ActivatedRoute, Router, Params} from '@angular/router';
+import {Component, OnInit} from '@angular/core';
+import {NewsService} from '../news/news.service';
+import {ActivatedRoute, Params, Router} from '@angular/router';
+import {News} from '../news/news';
+import 'rxjs/add/operator/toPromise';
+
 @Component({
   selector: 'news-detail',
   templateUrl: './news-detail.component.html',
   styleUrls: ['./news-detail.component.css'],
-  animations: [slideInDownAnimation]
+
 })
 export class NewsDetailComponent implements OnInit {
-  @HostBinding('@routeAnimation') routeAnimation = true;
-  @HostBinding('style.display') display = 'block';
-  @HostBinding('style.position') position = 'absolute';
 
-  news:News;
+  news: News;
 
   constructor(private route: ActivatedRoute,
               private newsService: NewsService,
@@ -22,13 +21,14 @@ export class NewsDetailComponent implements OnInit {
 
   ngOnInit(): void {
     this.route.params
-      .switchMap((params:Params)=>this.newsService.getNews(+params['id']))
-      .subscribe((news:News)=>this.news=news);
+      .switchMap((params: Params) => this.newsService.getNews(+params['id']))
+      .subscribe(news => this.news = news);
+    localStorage.setItem('current_project', JSON.stringify(this.news.id));
   }
 
-  gotoProjects(){
-    let projectId = this.news ? this.news.id:null;
-    this.router.navigate(['/news',{id:projectId,foo:'foo'}]);
+  gotoNews() {
+    let newsId = this.news ? this.news.id : null;
+    this.router.navigate(['/news', {id: newsId, foo: 'foo'}]);
   }
 
 }

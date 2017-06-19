@@ -26,9 +26,9 @@ public class RoleServiceImpl implements RoleService {
         return this.toDto(roleRepository.findAll());
     }
 
-    public List<RoleDto> toDto(List<Role> list){
+    public List<RoleDto> toDto(List<Role> list) {
         List<RoleDto> listDto = new ArrayList<>();
-        for (Role role: list){
+        for (Role role : list) {
             listDto.add(new RoleDto(role));
         }
         return listDto;

@@ -8,12 +8,12 @@ import lombok.*;
 @Getter
 @Setter
 @Data
-public class TagDto implements Dto{
+public class TagDto implements Dto {
     private long id;
     private String name;
 
-    public TagDto(Tag tag){
-        this.id=tag.getId();
-        this.name=tag.getName();
+    public TagDto(Tag tag) {
+        this.id = tag.getId();
+        this.name = tag.getName();
     }
 }

@@ -1,45 +1,63 @@
-import {Component, HostBinding, OnDestroy, OnInit} from '@angular/core';
-import {News, NewsService} from './news.service';
-import {slideInDownAnimation} from '../../animations';
+import {Component, OnInit} from '@angular/core';
+import {NewsService} from './news.service';
 import 'rxjs/add/operator/switchMap';
-import {Observable} from 'rxjs/Observable';
-import {ActivatedRoute, Params, Router} from '@angular/router';
-import {ProjectService} from '../project/project.service';
+import {Router} from '@angular/router';
+import {News} from './news';
+import 'rxjs/add/operator/toPromise';
 
 @Component({
   selector: 'app-news',
   templateUrl: './news.component.html',
   styleUrls: ['./news.component.css'],
-  providers:[NewsService],
-  animations: [slideInDownAnimation]
+  providers: [NewsService],
 })
-export class NewsComponent implements OnInit{
-  @HostBinding('@routeAnimation') routeAnimation = true;
-  @HostBinding('style.display') display = 'block';
-  @HostBinding('style.position') position = 'absolute';
+export class NewsComponent implements OnInit {
 
-  newses: Observable<News[]>;
-  private selectedId: number;
+  newse: News[];
+  selectNews: News;
 
   constructor(private newsService: NewsService,
-              private route: ActivatedRoute,
               private router: Router) {
   }
 
-  ngOnInit() {
-    this.newses = this.route.params
-      .switchMap((params: Params) => {
-        this.selectedId = +params['id'];
-        return this.newsService.getNewses();
-      })
+  getNewse(): void {
+    this.newsService
+      .getNewse()
+      .then(newse => this.newse = newse);
   }
 
-  isSelected(news: News) {
-    return news.id === this.selectedId;
+  add(name: string): void {
+    name = name.trim();
+    if (!name) {
+      return;
+    }
+    this.newsService.create(name)
+      .then(news => {
+        this.newse.push(news);
+        this.selectNews = null;
+      });
   }
 
-  onSelect(news: News) {
-    this.router.navigate(['/news', news.id]);
+  delete(news: News): void {
+    this.newsService
+      .delete(news.id)
+      .then(() => {
+        this.newse = this.newse.filter(h => h !== news);
+        if (this.selectNews === news) {
+          this.selectNews = null;
+        }
+      });
   }
 
+  ngOnInit(): void {
+    this.getNewse();
+  }
+
+  onSelect(news: News): void {
+    this.selectNews = news;
+  }
+
+  gotoDetail(): void {
+    this.router.navigate(['/news', this.selectNews.id]);
+  }
 }

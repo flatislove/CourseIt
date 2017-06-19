@@ -1,6 +1,6 @@
 package com.itra.authentication.service;
 
-import com.itra.authentication.AuthUserToDto;
+import com.itra.dto.Authentication.AuthUserToDto;
 import com.itra.authentication.SecurityHelper;
 import com.itra.authentication.exception.JsonException;
 import com.itra.authentication.model.JwtUserDetails;

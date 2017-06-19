@@ -1,6 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {AccountService} from './account.service';
 import {User} from './user';
+import 'rxjs/add/operator/toPromise';
 
 @Component({
   selector: 'app-account-main',
@@ -16,6 +17,7 @@ export class AccountMainComponent implements OnInit {
 
   ngOnInit() {
     return this.accountService.getCurrentUser(localStorage.getItem('current_nickname'));
+
   }
 
 }

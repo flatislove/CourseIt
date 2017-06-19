@@ -66,8 +66,8 @@ public class ProjectServiceImpl implements ProjectService {
 
     @Override
     public Project outDto(ProjectDto projectDto) {
-        return new Project(projectDto.getId(),projectDto.getName(),projectDto.getDescription(),projectDto.getText(),
-                projectDto.getMarkdown(),projectDto.getStatus(),userRepository.findOne(projectDto.getManager()));
+        return new Project(projectDto.getId(), projectDto.getName(), projectDto.getDescription(), projectDto.getText(),
+                projectDto.getMarkdown(), projectDto.getStatus(), userRepository.findOne(projectDto.getManager()));
     }
 
     public static ArrayList<Long> getIdAll(List<Project> projects) {

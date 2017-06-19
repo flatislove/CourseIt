@@ -1,4 +1,4 @@
-package com.itra.authentication;
+package com.itra.dto.Authentication;
 
 import com.itra.dto.Authentication.AuthenticationUserDto;
 import com.itra.entity.models.User;
@@ -8,7 +8,7 @@ import org.springframework.stereotype.Component;
 @Component
 @RequiredArgsConstructor
 public class AuthUserToDto {
-    public AuthenticationUserDto toDto(final User user){
+    public AuthenticationUserDto toDto(final User user) {
         AuthenticationUserDto authenticationUserDto = new AuthenticationUserDto();
         authenticationUserDto.setId(user.getId());
         authenticationUserDto.setNickname(user.getNickname());

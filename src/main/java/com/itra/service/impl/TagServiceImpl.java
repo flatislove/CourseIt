@@ -21,9 +21,9 @@ public class TagServiceImpl implements TagService {
         return this.toDto(tagRepository.findAll());
     }
 
-    public List<TagDto> toDto(List<Tag> list){
+    public List<TagDto> toDto(List<Tag> list) {
         List<TagDto> listDto = new ArrayList<>();
-        for (Tag tag: list){
+        for (Tag tag : list) {
             listDto.add(new TagDto(tag));
         }
         return listDto;
@@ -56,9 +56,9 @@ public class TagServiceImpl implements TagService {
         return tagRepository.saveAndFlush(tag);
     }
 
-    public static ArrayList<Long> getIdAll(List<Tag> tags){
+    public static ArrayList<Long> getIdAll(List<Tag> tags) {
         ArrayList<Long> listId = new ArrayList<>();
-        for (Tag tag: tags){
+        for (Tag tag : tags) {
             listId.add(tag.getId());
         }
         return listId;

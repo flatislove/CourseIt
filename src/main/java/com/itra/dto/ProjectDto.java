@@ -8,7 +8,7 @@ import lombok.*;
 @Getter
 @Setter
 @Data
-public class ProjectDto implements Dto{
+public class ProjectDto implements Dto {
     private long id;
     private String name;
     private String description;
@@ -19,7 +19,7 @@ public class ProjectDto implements Dto{
 
     public ProjectDto(Project project) {
         this.id = project.getId();
-        this.markdown=project.getMarkdown();
+        this.markdown = project.getMarkdown();
         this.name = project.getName();
         this.description = project.getDescription();
         this.text = project.getText();

@@ -8,7 +8,7 @@ import java.io.Serializable;
 import java.util.Collection;
 import java.util.Objects;
 
-public class JwtAuthenticationToken implements Authentication{
+public class JwtAuthenticationToken implements Authentication {
     private final JwtUserDetails userDetails;
 
     private final Serializable credentials;

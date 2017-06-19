@@ -11,8 +11,8 @@ public class TokenPayload {
     private long userId;
     private long exp;
 
-    public TokenPayload(final long userId, final long exp){
-        this.userId=userId;
-        this.exp=exp;
+    public TokenPayload(final long userId, final long exp) {
+        this.userId = userId;
+        this.exp = exp;
     }
 }

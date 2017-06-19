@@ -1,6 +1,7 @@
 import {Component, HostBinding} from '@angular/core';
 import {Router} from '@angular/router';
 import {slideInDownAnimation} from './animations';
+import 'rxjs/add/operator/toPromise';
 
 @Component({
   selector: 'my-app',

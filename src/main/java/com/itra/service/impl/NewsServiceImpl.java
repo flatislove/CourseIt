@@ -24,9 +24,9 @@ public class NewsServiceImpl implements NewsService {
         return this.toDto(newsRepository.findAll());
     }
 
-    public List<NewsDto> toDto(List<News> list){
+    public List<NewsDto> toDto(List<News> list) {
         List<NewsDto> listDto = new ArrayList<>();
-        for (News news: list){
+        for (News news : list) {
             listDto.add(new NewsDto(news));
         }
         return listDto;
@@ -38,8 +38,8 @@ public class NewsServiceImpl implements NewsService {
     }
 
     @Override
-    public News outDto(NewsDto newsDto){
-        return new News(newsDto.getDescription(),newsDto.getText(),
+    public News outDto(NewsDto newsDto) {
+        return new News(newsDto.getDescription(), newsDto.getText(),
                 roleRepository.findByName(newsDto.getRole()));
     }
 
@@ -50,7 +50,7 @@ public class NewsServiceImpl implements NewsService {
 
     @Override
     public News addNews(News news) {
-        News savedNews = newsRepository.saveAndFlush(tag);
+        News savedNews = newsRepository.saveAndFlush(news);
         return savedNews;
     }
 

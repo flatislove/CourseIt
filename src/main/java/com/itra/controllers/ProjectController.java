@@ -23,17 +23,10 @@ public class ProjectController {
     public ResponseEntity<?> getAllProjects() {
         return ResponseEntity.ok(this.projectService.getAll());
     }
-//    public List<ProjectDto> listProjects() {
-//        return projectService.getAll();
-//    }
 
     @GetMapping("/projects/{id}")
     public ResponseEntity<?> projectById(@PathVariable long id) {
         return ResponseEntity.ok(this.projectService.getById(id));
-//        ProjectDto projectDto = projectService.getById(id);
-//        if (projectDto == null) {
-//            return new ResponseEntity<ProjectDto>(HttpStatus.NO_CONTENT);
-//        } else return new ResponseEntity<ProjectDto>(projectDto, HttpStatus.OK);
     }
 
     @GetMapping("/projects/{id}/message")
